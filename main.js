@@ -175,10 +175,11 @@ function collectionCard(c, allArtworks) {
 
 // ── HOMEPAGE ──
 async function initHomepage() {
-  const [home, artworks, collections] = await Promise.all([
+  const [home, artworks, collections, shopItems] = await Promise.all([
     fetchJSON('/_data/pages/home.json'),
     loadAll('artworks'),
-    loadAll('collections')
+    loadAll('collections'),
+    loadAll('shop-items')
   ]);
 
   const published    = artworks.filter(a => a.published !== false);
@@ -219,6 +220,21 @@ async function initHomepage() {
       ? show.map(c => collectionCard(c, published)).join('')
       : '';
     if (!show.length) document.getElementById('collections-preview-section')?.style.setProperty('display','none');
+  }
+
+  // Shop preview
+  const previewSection = document.getElementById('shop-preview-section');
+  const previewGrid    = document.getElementById('home-shop-preview');
+  if (previewGrid) {
+    const shopPub = shopItems
+      .filter(i => i.published !== false)
+      .sort((a, b) => (a.order || 99) - (b.order || 99))
+      .slice(0, 4);
+    if (shopPub.length) {
+      previewGrid.innerHTML = shopPub.map(shopItemCard).join('');
+    } else {
+      previewSection?.style.setProperty('display', 'none');
+    }
   }
 
   applySettings();
@@ -844,6 +860,23 @@ window.dpSetThumb       = dpSetThumb;
 document.getElementById('dp-backdrop')?.addEventListener('click', closeDetailPanel);
 document.getElementById('dp-close')?.addEventListener('click', closeDetailPanel);
 
+// ── SHOP PAGE ──
+async function initShop() {
+  const items = await loadAll('shop-items');
+  const published = items
+    .filter(i => i.published !== false)
+    .sort((a, b) => (a.order || 99) - (b.order || 99));
+
+  const grid = document.getElementById('shop-grid');
+  if (!grid) return;
+
+  grid.innerHTML = published.length
+    ? published.map(shopItemCard).join('')
+    : '<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:4rem 0">No items available yet.</p>';
+
+  applySettings();
+}
+
 // ── PRINTS & GIFTS ──
 function shopItemCard(item) {
   _shopPanelData.set(item._slug, item);
@@ -891,12 +924,13 @@ async function loadShopSection() {
 // ── ROUTE ──
 const page = document.body.dataset.page;
 switch (page) {
-  case 'home':        initHomepage();      break;
-  case 'gallery':     initGallery();       break;
-  case 'artwork':     initArtworkPage();   break;
-  case 'collections': initCollections();   break;
+  case 'home':        initHomepage();       break;
+  case 'gallery':     initGallery();        break;
+  case 'shop':        initShop();           break;
+  case 'artwork':     initArtworkPage();    break;
+  case 'collections': initCollections();    break;
   case 'collection':  initCollectionPage(); break;
-  case 'about':       initAbout();         break;
-  case 'contact':     initContact();       break;
-  default:            applySettings();     break;
+  case 'about':       initAbout();          break;
+  case 'contact':     initContact();        break;
+  default:            applySettings();      break;
 }
