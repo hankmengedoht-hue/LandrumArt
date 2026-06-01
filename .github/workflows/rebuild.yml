@@ -498,6 +498,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull origin main --no-rebase || true
           git add \
             _data/artworks/manifest.json \
             _data/collections/manifest.json \
@@ -507,7 +508,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "Everything already up to date."
           else
-            git pull --rebase
             git commit -m "Auto-rebuild artwork pages and sitemap [skip ci]"
             git push
           fi
