@@ -112,7 +112,7 @@ jobs:
           def nav(active=''):
               links = [
                   ('/gallery.html','gallery','Gallery'),
-                  ('/collections.html','collections','Collections'),
+                  ('/shop.html','shop','Shop'),
                   ('/about.html','about','About'),
                   ('/contact.html','contact','Contact'),
               ]
@@ -319,7 +319,7 @@ jobs:
               h += f'''<nav class="detail-breadcrumb" aria-label="Breadcrumb">
                 <a href="/gallery.html">Gallery</a>
                 <span class="detail-breadcrumb-sep">›</span>
-                {'<a href="/collection/' + esc(col_slug) + '.html">' + esc(col_title) + '</a><span class="detail-breadcrumb-sep">›</span>' if col_title else ''}
+                {'<a href="/gallery.html?collection=' + esc(col_slug) + '">' + esc(col_title) + '</a><span class="detail-breadcrumb-sep">›</span>' if col_title else ''}
                 <span>{esc(title)}</span>
               </nav>'''
               h += '\n<div class="detail-layout">\n'
@@ -330,7 +330,7 @@ jobs:
                 </div>
                 {thumb_html}
               </div>'''
-              col_html = f'<a href="/collection/{esc(col_slug)}.html">{esc(col_title)}</a>' if col_title else ''
+              col_html = f'<a href="/gallery.html?collection={esc(col_slug)}">{esc(col_title)}</a>' if col_title else ''
               h += f'''
               <div class="detail-info">
                 {'<div class="detail-collection">' + col_html + '</div>' if col_html else ''}
@@ -364,120 +364,10 @@ jobs:
               generated_artworks.append(slug)
               print(f'Generated: artwork/{slug}.html')
 
-          # ── GENERATE COLLECTION PAGES ──
-          shutil.rmtree('collection', ignore_errors=True)
-          os.makedirs('collection', exist_ok=True)
-
-          generated_collections = []
-
-          for c in collections:
-              if c.get('published') is False: continue
-              slug  = c['_slug']
-              title = c.get('title','')
-              desc  = c.get('description','')
-              img   = c.get('banner_image','')
-
-              works = [a for a in published_artworks if a.get('collection') == slug]
-              works.sort(key=lambda a: (a.get('order',99), a.get('title','')))
-
-              def artwork_card(a):
-                  aimg = a.get('image','') or (a.get('gallery_images') or [''])[0]
-                  if isinstance(aimg, dict): aimg = aimg.get('image','')
-                  opts = a.get('purchase_options') or []
-                  sold = opts and all(o.get('available') is False for o in opts)
-                  prices = [float(str(o.get('price',0)).replace('$','').replace(',',''))
-                            for o in opts if o.get('available') is not False and o.get('price')]
-                  mp = min(prices) if prices else None
-                  badge = '<span class="card-badge badge-featured">Featured</span>' if a.get('featured') else ''
-                  if sold: badge += '<span class="card-badge badge-sold">Sold</span>'
-                  img_html = f'<img src="{esc(aimg)}" alt="{esc(a.get("title",""))}" loading="lazy" />' if aimg else '<div class="card-image-placeholder">🖼</div>'
-                  price_html = f'<div class="card-price">{"Sold" if sold else "From " + fmt_price(mp) if mp else ""}</div>' if sold or mp else ''
-                  return f'''
-              <article class="artwork-card{"  featured" if a.get("featured") else ""}" role="link" tabindex="0"
-                onclick="window.location='/artwork/{esc(a["_slug"])}.html'"
-                onkeydown="if(event.key===\'Enter\')window.location='/artwork/{esc(a["_slug"])}.html'">
-                <div class="card-image-wrap">{img_html}{badge}</div>
-                <div class="card-info">
-                  <div class="card-title">{esc(a.get("title",""))}</div>
-                  <div class="card-meta">{esc((" · ".join([x for x in [a.get("medium",""), str(a.get("year",""))] if x]))[:50])}</div>
-                  {price_html}
-                </div>
-              </article>'''
-
-              page_url = f'{SITE}/collection/{slug}.html'
-              og_image = SITE + img if img else ''
-
-              hero_html = ''
-              if img:
-                  hero_html = f'''
-          <div class="collection-hero">
-            <img src="{esc(img)}" alt="{esc(title)}" />
-            <div class="collection-hero-content">
-              <nav aria-label="Breadcrumb" style="margin-bottom:.75rem">
-                <a href="/collections.html" style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,235,227,.5);font-weight:600">← Collections</a>
-              </nav>
-              <h1>{esc(title)}</h1>
-              <div class="collection-hero-meta">{len(works)} work{"s" if len(works)!=1 else ""}</div>
-            </div>
-          </div>'''
-              else:
-                  hero_html = f'''
-          <div style="padding-top:calc(var(--nav-h) + 3rem);padding-bottom:2.5rem;border-bottom:1px solid var(--border)">
-            <div class="container">
-              <a href="/collections.html" style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;display:inline-block;margin-bottom:1.5rem">← Collections</a>
-              <span class="section-eyebrow">Collection</span>
-              <h1 style="font-style:italic;font-weight:300">{esc(title)}</h1>
-              <div style="font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-top:.5rem">{len(works)} work{"s" if len(works)!=1 else ""}</div>
-            </div>
-          </div>'''
-
-              schema = {
-                  '@context': 'https://schema.org',
-                  '@type': 'CollectionPage',
-                  'name': f'{title} — {ARTIST}',
-                  'description': desc,
-                  'url': page_url
-              }
-
-              h  = head(f'{title} — {ARTIST}', desc or f'Artworks from the {title} collection by {ARTIST}.', og_image, page_url, page_url)
-              h += f'  <script type="application/ld+json">\n{json.dumps(schema, indent=2)}\n  </script>\n</head>\n'
-              h += f'<body data-page="collection" data-slug="{esc(slug)}">\n'
-              h += '<a class="skip-to-content" href="#main-content">Skip to main content</a>\n'
-              h += nav('collections')
-              h += '\n<main id="main-content">\n'
-              h += hero_html
-              h += '\n<section class="section" style="padding-top:2.5rem"><div class="container">\n'
-              if desc:
-                  h += f'<p class="detail-description" style="margin-bottom:2.5rem;max-width:65ch">{esc(desc)}</p>\n'
-              if works:
-                  h += f'<div class="artwork-grid artwork-grid-md">{"".join(artwork_card(a) for a in works)}</div>\n'
-              else:
-                  h += '<p style="color:var(--muted);text-align:center;padding:4rem 0">No artworks in this collection yet.</p>\n'
-              h += '</div></section>\n'
-              h += '''
-          <section class="cta-banner fade-in">
-            <div class="container">
-              <h2>Explore More Collections</h2>
-              <div class="cta-actions">
-                <a href="/collections.html" class="btn btn-accent">All Collections</a>
-                <a href="/gallery.html"     class="btn btn-ghost">Full Gallery</a>
-              </div>
-            </div>
-          </section>'''
-              h += '\n</main>\n'
-              h += footer()
-              h += '\n<script src="/main.js"></script>\n</body>\n</html>\n'
-
-              with open(f'collection/{slug}.html', 'w', encoding='utf-8') as fh:
-                  fh.write(h)
-              generated_collections.append(slug)
-              print(f'Generated: collection/{slug}.html')
-
           # ── GENERATE SITEMAP ──
           core = [
               ('', '1.0', 'weekly'),
               ('gallery.html', '0.9', 'weekly'),
-              ('collections.html', '0.8', 'monthly'),
               ('shop.html', '0.8', 'weekly'),
               ('about.html', '0.7', 'monthly'),
               ('contact.html', '0.7', 'monthly'),
@@ -493,14 +383,11 @@ jobs:
           for slug in sorted(generated_artworks):
               sm += f'  <url><loc>{SITE}/artwork/{slug}.html</loc>'
               sm += f'<lastmod>{TODAY}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>\n'
-          for slug in sorted(generated_collections):
-              sm += f'  <url><loc>{SITE}/collection/{slug}.html</loc>'
-              sm += f'<lastmod>{TODAY}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>\n'
           sm += '</urlset>\n'
 
           with open('sitemap.xml', 'w', encoding='utf-8') as fh:
               fh.write(sm)
-          print(f'Generated sitemap.xml: {len(core) + len(generated_artworks) + len(generated_collections)} URLs')
+          print(f'Generated sitemap.xml: {len(core) + len(generated_artworks)} URLs')
           PYEOF
 
       - name: Commit if changed
@@ -510,7 +397,6 @@ jobs:
             _data/collections/manifest.json \
             _data/shop-items/manifest.json \
             artwork/ \
-            collection/ \
             sitemap.xml
           if git diff --staged --quiet; then
             echo "Everything already up to date."

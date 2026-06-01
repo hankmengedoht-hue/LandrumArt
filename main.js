@@ -175,16 +175,13 @@ function collectionCard(c, allArtworks) {
 
 // ── HOMEPAGE ──
 async function initHomepage() {
-  const [home, artworks, collections, shopItems] = await Promise.all([
+  const [home, artworks, shopItems] = await Promise.all([
     fetchJSON('/_data/pages/home.json'),
     loadAll('artworks'),
-    loadAll('collections'),
     loadAll('shop-items')
   ]);
 
-  const published    = artworks.filter(a => a.published !== false);
-  const colPublished = collections.filter(c => c.published !== false);
-  const colMap       = Object.fromEntries(colPublished.map(c => [c._slug, c.title]));
+  const published = artworks.filter(a => a.published !== false);
 
   // Hero
   if (home) {
@@ -198,9 +195,7 @@ async function initHomepage() {
 
   // Stats
   const statA = document.getElementById('stat-artworks');
-  const statC = document.getElementById('stat-collections');
   if (statA) statA.textContent = published.length || '—';
-  if (statC) statC.textContent = colPublished.length || '—';
 
   // Featured artworks
   const featEl = document.getElementById('featured-artworks');
@@ -208,18 +203,8 @@ async function initHomepage() {
     const featured = published.filter(a => a.featured).sort((a,b) => (a.order||99)-(b.order||99));
     const show     = (featured.length ? featured : published.sort((a,b)=>(a.order||99)-(b.order||99))).slice(0, 6);
     featEl.innerHTML = show.length
-      ? show.map(a => artworkCard(a, colMap[a.collection])).join('')
+      ? show.map(a => artworkCard(a)).join('')
       : '<p style="color:var(--muted);grid-column:1/-1;text-align:center;">No artworks yet.</p>';
-  }
-
-  // Collections preview
-  const colEl = document.getElementById('home-collections');
-  if (colEl) {
-    const show = colPublished.sort((a,b)=>(a.order||99)-(b.order||99)).slice(0, 4);
-    colEl.innerHTML = show.length
-      ? show.map(c => collectionCard(c, published)).join('')
-      : '';
-    if (!show.length) document.getElementById('collections-preview-section')?.style.setProperty('display','none');
   }
 
   // Shop preview
@@ -247,11 +232,14 @@ async function initGallery() {
   const colPublished = collections.filter(c => c.published !== false);
   const colMap       = Object.fromEntries(colPublished.map(c => [c._slug, c.title]));
 
-  let searchVal  = '';
-  let activeCol  = 'all';
-  let activeMed  = 'all';
+  // Support ?collection=slug deep-link (e.g. from artwork detail panel)
+  const urlCol = new URLSearchParams(window.location.search).get('collection') || 'all';
+
+  let searchVal   = '';
+  let activeCol   = urlCol;
+  let activeMed   = 'all';
   let activeAvail = 'all';
-  let sortBy     = 'featured';
+  let sortBy      = 'featured';
 
   // Populate medium dropdown
   const medSelect = document.getElementById('filter-medium');
@@ -268,8 +256,11 @@ async function initGallery() {
   // Collection filter buttons
   const colWrap = document.getElementById('filter-collections');
   if (colWrap) {
-    colWrap.innerHTML = `<button class="filter-btn active" data-col="all">All</button>` +
-      colPublished.map(c => `<button class="filter-btn" data-col="${esc(c._slug)}">${esc(c.title)}</button>`).join('');
+    colWrap.innerHTML =
+      `<button class="filter-btn${activeCol === 'all' ? ' active' : ''}" data-col="all">All</button>` +
+      colPublished.map(c =>
+        `<button class="filter-btn${activeCol === c._slug ? ' active' : ''}" data-col="${esc(c._slug)}">${esc(c.title)}</button>`
+      ).join('');
     colWrap.addEventListener('click', e => {
       const btn = e.target.closest('.filter-btn[data-col]');
       if (!btn) return;
@@ -771,7 +762,7 @@ function _buildArtworkInfo(data) {
   let h = '';
 
   if (colName) {
-    h += `<div class="dp-eyebrow"><a href="/collection/${esc(colSlug)}.html">${esc(colName)}</a></div>`;
+    h += `<div class="dp-eyebrow"><a href="/gallery.html?collection=${esc(colSlug)}">${esc(colName)}</a></div>`;
   }
 
   h += `<div>
