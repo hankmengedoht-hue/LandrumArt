@@ -188,6 +188,66 @@ collections:
         hint: "Lower numbers appear first."
 
   # ─────────────────────────────────────────
+  # PRINTS & GIFTS (shop items)
+  # ─────────────────────────────────────────
+  - name: "shop-items"
+    label: "Prints & Gifts"
+    label_singular: "Item"
+    folder: "_data/shop-items"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    summary: "{{name}}"
+    extension: "json"
+    format: "json"
+    fields:
+
+      - label: "Item Name"
+        name: "name"
+        widget: "string"
+        hint: "e.g. Lowcountry Note Card Set, Marsh at Dusk Postcard Pack"
+
+      - label: "Image"
+        name: "image"
+        widget: "image"
+        hint: "Product photo. Horizontal (3:2 ratio) works best."
+
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        hint: "What's included — card count, dimensions, paper stock, artwork featured, etc."
+
+      - label: "Price"
+        name: "price"
+        widget: "number"
+        required: false
+        hint: "Price in USD (number only, e.g. 18)."
+
+      - label: "Available"
+        name: "available"
+        widget: "boolean"
+        default: true
+        hint: "Turn OFF to mark as sold out without deleting."
+
+      - label: "Shopify Checkout URL"
+        name: "shopify_url"
+        widget: "string"
+        required: false
+        hint: "Paste the Shopify product or checkout URL for this item."
+
+      - label: "Published"
+        name: "published"
+        widget: "boolean"
+        default: true
+        hint: "Unpublish to hide without deleting."
+
+      - label: "Sort Order"
+        name: "order"
+        widget: "number"
+        default: 99
+        hint: "Lower numbers appear first."
+
+  # ─────────────────────────────────────────
   # PAGE CONTENT
   # ─────────────────────────────────────────
   - name: "pages"

@@ -323,6 +323,7 @@ async function initGallery() {
   }
 
   render();
+  loadShopSection();
   applySettings();
 }
 
@@ -646,6 +647,49 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight')  lightboxNav(1);
   if (e.key === 'ArrowLeft')   lightboxNav(-1);
 });
+
+// ── PRINTS & GIFTS ──
+function shopItemCard(item) {
+  const avail = item.available !== false;
+  return `
+    <div class="shop-card">
+      <div class="shop-card-image">
+        ${item.image
+          ? `<img src="${esc(item.image)}" alt="${esc(item.name)}" loading="lazy" />`
+          : `<div class="shop-card-image-placeholder">🎁</div>`}
+      </div>
+      <div class="shop-card-body">
+        <div class="shop-card-name">${esc(item.name)}</div>
+        ${item.description ? `<p class="shop-card-desc">${esc(item.description)}</p>` : ''}
+        <div class="shop-card-footer">
+          ${item.price ? `<div class="shop-card-price">${fmt(item.price)}</div>` : '<div></div>'}
+          ${avail && item.shopify_url
+            ? `<a href="${esc(item.shopify_url)}" target="_blank" rel="noopener noreferrer" class="btn-shop-buy">Buy Now</a>`
+            : !avail
+              ? `<span class="shop-card-sold-badge">Sold Out</span>`
+              : ''}
+        </div>
+      </div>
+    </div>`;
+}
+
+async function loadShopSection() {
+  const items = await loadAll('shop-items');
+  const published = items
+    .filter(i => i.published !== false)
+    .sort((a, b) => (a.order || 99) - (b.order || 99));
+
+  const section = document.getElementById('prints-gifts-section');
+  const grid    = document.getElementById('shop-grid');
+  if (!grid) return;
+
+  if (!published.length) {
+    section?.style.setProperty('display', 'none');
+    return;
+  }
+
+  grid.innerHTML = published.map(shopItemCard).join('');
+}
 
 // ── ROUTE ──
 const page = document.body.dataset.page;

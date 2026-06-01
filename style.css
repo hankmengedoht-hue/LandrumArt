@@ -521,6 +521,112 @@ p { max-width: 68ch; }
   color: var(--accent);
 }
 
+/* ── SHOP / PRINTS & GIFTS ── */
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--gap);
+}
+.shop-card {
+  background: var(--card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  display: flex;
+  flex-direction: column;
+}
+.shop-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--border-soft);
+}
+.shop-card-image {
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--surface);
+  flex-shrink: 0;
+}
+.shop-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s cubic-bezier(.25,.46,.45,.94);
+}
+.shop-card:hover .shop-card-image img { transform: scale(1.04); }
+.shop-card-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--faint);
+  font-size: 3rem;
+}
+.shop-card-body {
+  padding: 1.25rem 1.4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.shop-card-name {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: .45rem;
+  line-height: 1.25;
+}
+.shop-card-desc {
+  font-size: .82rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 1.1rem;
+  flex: 1;
+}
+.shop-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: auto;
+}
+.shop-card-price {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--text);
+  white-space: nowrap;
+}
+.shop-card-sold-badge {
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--sold);
+  background: rgba(140,74,74,.1);
+  padding: .25rem .6rem;
+  border-radius: 2px;
+}
+.btn-shop-buy {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid rgba(200,165,106,.4);
+  font-family: var(--font-sans);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: .5rem 1rem;
+  border-radius: var(--radius);
+  transition: background .2s, color .2s;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.btn-shop-buy:hover { background: var(--accent); color: #000; }
+
 /* ── GALLERY FILTERS ── */
 .gallery-toolbar {
   display: flex;
