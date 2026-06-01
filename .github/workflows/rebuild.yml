@@ -121,6 +121,7 @@ jobs:
                   for url,k,label in links[:-1]
               )
               cta = f'<a href="/contact.html" class="nav-link{" active" if active=="contact" else ""} nav-link-cta">Contact</a>'
+              home = '<a href="/index.html" class="nav-link nav-home" aria-label="Home"><svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg></a>'
               return f'''
           <header class="site-header scrolled" id="site-header">
             <div class="container nav-inner">
@@ -129,7 +130,7 @@ jobs:
                 <span class="logo-sub">Fine Art</span>
               </a>
               <nav class="main-nav" id="main-nav" aria-label="Main navigation">
-                {items}{cta}
+                {home}{items}{cta}
               </nav>
               <button class="hamburger" id="hamburger" aria-label="Open menu">
                 <span></span><span></span><span></span>
