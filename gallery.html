@@ -150,6 +150,23 @@
   </div>
 </footer>
 
+<!-- ── DETAIL PANEL ── -->
+<div id="detail-panel" class="dp-overlay" role="dialog" aria-modal="true" aria-label="Item details">
+  <div class="dp-backdrop" id="dp-backdrop"></div>
+  <div class="dp-panel">
+    <button class="dp-close" id="dp-close" aria-label="Close">&times;</button>
+    <div class="dp-layout">
+      <div class="dp-image-col">
+        <div class="dp-main-image" id="dp-main-image">
+          <img id="dp-main-img" src="" alt="" />
+        </div>
+        <div class="dp-thumbs" id="dp-thumbs"></div>
+      </div>
+      <div class="dp-info" id="dp-info"></div>
+    </div>
+  </div>
+</div>
+
 <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
   <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
   <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)" aria-label="Previous">&#8249;</button>

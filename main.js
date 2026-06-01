@@ -88,6 +88,10 @@ function isAllSold(purchaseOptions) {
   return opts.length > 0 && opts.every(o => o.available === false);
 }
 
+// ── PANEL DATA STORES ──
+const _panelData     = new Map(); // slug → artwork + _colName
+const _shopPanelData = new Map(); // slug → shop item
+
 // ── ACTIVE NAV LINK ──
 function setActiveNav() {
   const path = window.location.pathname;
@@ -129,14 +133,16 @@ function artworkCard(a, collectionName) {
   const sold = isAllSold(a.purchase_options);
   const mp   = minPrice(a.purchase_options);
 
+  _panelData.set(a._slug, { ...a, _colName: collectionName || '' });
+
   const badges = [];
   if (a.featured) badges.push(`<span class="card-badge badge-featured">Featured</span>`);
   if (sold)       badges.push(`<span class="card-badge badge-sold">Sold</span>`);
 
   return `
     <article class="artwork-card${a.featured ? ' featured' : ''}" role="link" tabindex="0"
-      onclick="window.location='/artwork/${esc(a._slug)}.html'"
-      onkeydown="if(event.key==='Enter')window.location='/artwork/${esc(a._slug)}.html'">
+      onclick="openArtworkPanel('${esc(a._slug)}')"
+      onkeydown="if(event.key==='Enter')openArtworkPanel('${esc(a._slug)}')">
       <div class="card-image-wrap">
         ${img
           ? `<img src="${esc(img)}" alt="${esc(a.title)}" loading="lazy" />`
@@ -617,7 +623,10 @@ function openLightbox(images, idx) {
 }
 function closeLightbox() {
   document.getElementById('lightbox')?.classList.remove('open');
-  document.body.style.overflow = '';
+  // Keep scroll locked if the detail panel is still open
+  if (!document.getElementById('detail-panel')?.classList.contains('open')) {
+    document.body.style.overflow = '';
+  }
 }
 function lightboxNav(dir) {
   _lbIdx = (_lbIdx + dir + _lbImages.length) % _lbImages.length;
@@ -642,17 +651,207 @@ if (lbEl) {
   lbEl.addEventListener('click', e => { if (e.target === lbEl) closeLightbox(); });
 }
 document.addEventListener('keydown', e => {
-  if (!lbEl?.classList.contains('open')) return;
-  if (e.key === 'Escape')      closeLightbox();
-  if (e.key === 'ArrowRight')  lightboxNav(1);
-  if (e.key === 'ArrowLeft')   lightboxNav(-1);
+  const panelOpen = document.getElementById('detail-panel')?.classList.contains('open');
+  const lbOpen    = lbEl?.classList.contains('open');
+  if (e.key === 'Escape') {
+    if (lbOpen)    { closeLightbox(); return; }
+    if (panelOpen) { closeDetailPanel(); return; }
+  }
+  if (!lbOpen) return;
+  if (e.key === 'ArrowRight') lightboxNav(1);
+  if (e.key === 'ArrowLeft')  lightboxNav(-1);
 });
+
+// ── DETAIL PANEL ──
+let _dpImgs = [];
+let _dpIdx  = 0;
+
+function openArtworkPanel(slug) {
+  const panel = document.getElementById('detail-panel');
+  if (!panel) { window.location = `/artwork/${slug}.html`; return; }
+
+  const data = _panelData.get(slug);
+  if (!data)  { window.location = `/artwork/${slug}.html`; return; }
+
+  const allImgs = [data.image, ...(Array.isArray(data.gallery_images) ? data.gallery_images : [])]
+    .map(x => (x && typeof x === 'object') ? x.image : x)
+    .filter(Boolean);
+  _dpImgs = [...new Set(allImgs)];
+  _dpIdx  = 0;
+
+  _dpSetMainImage(0);
+  _dpBuildThumbs();
+  document.getElementById('dp-info').innerHTML = _buildArtworkInfo(data);
+  _openDetailPanel(panel);
+}
+
+function openShopPanel(slug) {
+  const panel = document.getElementById('detail-panel');
+  if (!panel) return;
+
+  const data = _shopPanelData.get(slug);
+  if (!data) return;
+
+  _dpImgs = data.image ? [data.image] : [];
+  _dpIdx  = 0;
+
+  _dpSetMainImage(0);
+  document.getElementById('dp-thumbs').innerHTML = '';
+  document.getElementById('dp-info').innerHTML = _buildShopInfo(data);
+  _openDetailPanel(panel);
+}
+
+function _openDetailPanel(panel) {
+  panel.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('dp-close')?.focus();
+
+  const mainWrap = document.getElementById('dp-main-image');
+  if (mainWrap) {
+    mainWrap.onclick = () => { if (_dpImgs.length) openLightbox(_dpImgs, _dpIdx); };
+  }
+}
+
+function closeDetailPanel() {
+  const panel = document.getElementById('detail-panel');
+  if (!panel) return;
+  panel.classList.remove('open');
+  if (!document.getElementById('lightbox')?.classList.contains('open')) {
+    document.body.style.overflow = '';
+  }
+  const mainWrap = document.getElementById('dp-main-image');
+  if (mainWrap) mainWrap.onclick = null;
+}
+
+function dpSetThumb(i) {
+  _dpIdx = i;
+  _dpSetMainImage(i);
+  document.querySelectorAll('.dp-thumb').forEach((t, idx) => t.classList.toggle('active', idx === i));
+}
+
+function _dpSetMainImage(i) {
+  const img = document.getElementById('dp-main-img');
+  if (img) { img.src = _dpImgs[i] || ''; img.alt = ''; }
+}
+
+function _dpBuildThumbs() {
+  const el = document.getElementById('dp-thumbs');
+  if (!el) return;
+  if (_dpImgs.length < 2) { el.innerHTML = ''; return; }
+  el.innerHTML = _dpImgs.map((src, i) => `
+    <div class="dp-thumb${i === 0 ? ' active' : ''}" tabindex="0"
+      onclick="dpSetThumb(${i})"
+      onkeydown="if(event.key==='Enter')dpSetThumb(${i})">
+      <img src="${esc(src)}" alt="View ${i + 1}" loading="lazy" />
+    </div>`).join('');
+}
+
+function _buildArtworkInfo(data) {
+  const colName = data._colName || '';
+  const colSlug = data.collection || '';
+  const opts    = data.purchase_options || [];
+  const sold    = isAllSold(opts);
+  const mp      = minPrice(opts);
+  let h = '';
+
+  if (colName) {
+    h += `<div class="dp-eyebrow"><a href="/collection/${esc(colSlug)}.html">${esc(colName)}</a></div>`;
+  }
+
+  h += `<div>
+    <h2 class="dp-title">${esc(data.title || '')}</h2>`;
+  if (mp !== null) {
+    h += `<div class="dp-price-summary">${sold ? 'Sold' : 'From ' + fmt(mp)}</div>`;
+  }
+  h += `</div>`;
+
+  const specs = [
+    ['Medium', data.medium],
+    ['Dimensions', data.dimensions],
+    ['Year', data.year ? String(data.year) : ''],
+  ].filter(([, v]) => v);
+  if (specs.length) {
+    h += `<div class="dp-specs">${specs.map(([l, v]) =>
+      `<div class="dp-spec">
+        <div class="dp-spec-label">${esc(l)}</div>
+        <div class="dp-spec-value">${esc(v)}</div>
+      </div>`).join('')}</div>`;
+  }
+
+  if (data.description) {
+    h += `<p class="dp-desc">${esc(data.description)}</p>`;
+  }
+
+  if (opts.length) {
+    h += `<div class="dp-options-label">Available As</div><div>`;
+    opts.forEach(o => {
+      const avail = o.available !== false;
+      h += `<div class="dp-option">
+        <div class="dp-option-header">
+          <div class="dp-option-type">${esc(o.type || '')}</div>
+          ${o.price ? `<div class="dp-option-price">${fmt(o.price)}</div>` : ''}
+        </div>
+        ${o.description ? `<p class="dp-option-desc">${esc(o.description)}</p>` : ''}
+        ${avail ? `<span class="dp-avail-badge">Available</span>` : `<span class="dp-sold-badge">Sold</span>`}
+        ${avail && o.shopify_url
+          ? `<a href="${esc(o.shopify_url)}" target="_blank" rel="noopener noreferrer" class="dp-shop-buy">Purchase${o.price ? ' — ' + fmt(o.price) : ''}</a>`
+          : ''}
+      </div>`;
+    });
+    h += `</div>`;
+  } else {
+    h += `<p class="dp-no-options">Contact for pricing and availability —
+      <a href="/contact.html">get in touch</a>.</p>`;
+  }
+
+  h += `<div class="dp-footer-actions">
+    <a href="/artwork/${esc(data._slug)}.html" class="dp-footer-link">View Full Page →</a>
+    <a href="/contact.html" class="dp-footer-link">Contact the Artist</a>
+  </div>`;
+
+  return h;
+}
+
+function _buildShopInfo(data) {
+  const avail = data.available !== false;
+  let h = '';
+  h += `<div class="dp-eyebrow">Prints &amp; Gifts</div>`;
+  h += `<div>
+    <h2 class="dp-title" style="font-style:normal;font-weight:400;font-size:clamp(1.3rem,2vw,1.75rem)">${esc(data.name || '')}</h2>
+    ${data.price ? `<div class="dp-price-summary">${fmt(data.price)}</div>` : ''}
+  </div>`;
+  if (data.description) {
+    h += `<p class="dp-desc">${esc(data.description)}</p>`;
+  }
+  h += avail ? `<span class="dp-avail-badge">Available</span>` : `<span class="dp-sold-badge">Sold Out</span>`;
+  if (avail && data.shopify_url) {
+    h += `<a href="${esc(data.shopify_url)}" target="_blank" rel="noopener noreferrer"
+      class="dp-shop-buy" style="padding:.75rem 1.5rem;font-size:.75rem">
+      Buy Now${data.price ? ' — ' + fmt(data.price) : ''}
+    </a>`;
+  }
+  h += `<div class="dp-footer-actions">
+    <a href="/contact.html" class="dp-footer-link">Questions? Contact the Artist</a>
+  </div>`;
+  return h;
+}
+
+window.openArtworkPanel = openArtworkPanel;
+window.openShopPanel    = openShopPanel;
+window.closeDetailPanel = closeDetailPanel;
+window.dpSetThumb       = dpSetThumb;
+
+document.getElementById('dp-backdrop')?.addEventListener('click', closeDetailPanel);
+document.getElementById('dp-close')?.addEventListener('click', closeDetailPanel);
 
 // ── PRINTS & GIFTS ──
 function shopItemCard(item) {
+  _shopPanelData.set(item._slug, item);
   const avail = item.available !== false;
   return `
-    <div class="shop-card">
+    <div class="shop-card" role="button" tabindex="0"
+      onclick="openShopPanel('${esc(item._slug)}')"
+      onkeydown="if(event.key==='Enter')openShopPanel('${esc(item._slug)}')">
       <div class="shop-card-image">
         ${item.image
           ? `<img src="${esc(item.image)}" alt="${esc(item.name)}" loading="lazy" />`
@@ -663,11 +862,9 @@ function shopItemCard(item) {
         ${item.description ? `<p class="shop-card-desc">${esc(item.description)}</p>` : ''}
         <div class="shop-card-footer">
           ${item.price ? `<div class="shop-card-price">${fmt(item.price)}</div>` : '<div></div>'}
-          ${avail && item.shopify_url
-            ? `<a href="${esc(item.shopify_url)}" target="_blank" rel="noopener noreferrer" class="btn-shop-buy">Buy Now</a>`
-            : !avail
-              ? `<span class="shop-card-sold-badge">Sold Out</span>`
-              : ''}
+          ${avail
+            ? `<span class="btn-shop-buy">View Details</span>`
+            : `<span class="shop-card-sold-badge">Sold Out</span>`}
         </div>
       </div>
     </div>`;
