@@ -21,6 +21,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Pull latest changes
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull origin main --no-rebase
 
       - name: Rebuild manifests and generate static pages + sitemap
         run: |
@@ -99,7 +107,6 @@ jobs:
               h += '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n'
               h += '  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />\n'
               h += '  <link rel="stylesheet" href="/style.css" />\n'
-              h += '</head>\n'
               return h
 
           def nav(active=''):
@@ -267,11 +274,11 @@ jobs:
                   opts_html = '<p class="detail-contact-note">Contact for pricing and availability — <a href="/contact.html">get in touch</a>.</p>'
 
               # Specs
-              specs_data = [('Medium',desc) for desc in [medium] if medium] + \
-                           [('Dimensions',dimensions) if dimensions else ()] + \
-                           [('Year',str(year)) if year else ()] + \
-                           [('Collection',col_title) if col_title else ()]
-              specs_data = [(l,v) for (l,v) in specs_data if v]
+              specs_data = []
+              if medium:     specs_data.append(('Medium', medium))
+              if dimensions: specs_data.append(('Dimensions', dimensions))
+              if year:       specs_data.append(('Year', str(year)))
+              if col_title:  specs_data.append(('Collection', col_title))
               specs_html = ''.join(
                   f'<div class="detail-spec"><div class="detail-spec-label">{esc(l)}</div>'
                   f'<div class="detail-spec-value">{esc(v)}</div></div>'
@@ -497,9 +504,6 @@ jobs:
 
       - name: Commit if changed
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull origin main --no-rebase || true
           git add \
             _data/artworks/manifest.json \
             _data/collections/manifest.json \
