@@ -1,0 +1,22 @@
+{
+  "title": "Artwork Test Sample",
+  "published": true,
+  "featured": true,
+  "order": 99,
+  "image": "/images/uploads/CharlestonSC.jpg",
+  "gallery_images": [],
+  "medium": "Oil on Canvas",
+  "dimensions": "20x30",
+  "year": 2026,
+  "collection": "",
+  "description": "Beautiful painting sample test",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "Original full size",
+      "price": 549,
+      "available": true,
+      "shopify_url": ""
+    }
+  ]
+}
