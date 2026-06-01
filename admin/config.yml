@@ -1,0 +1,268 @@
+backend:
+  name: github
+  repo: hankmengedoht-hue/LandrumArt
+  branch: main
+  base_url: https://cms-auth.hankmengedoht.workers.dev
+  squash_merges: true
+  commit_messages:
+    create:      'Create {{collection}} "{{slug}}"'
+    update:      'Update {{collection}} "{{slug}}"'
+    delete:      'Delete {{collection}} "{{slug}}"'
+    uploadMedia: 'Upload "{{path}}"'
+    deleteMedia: 'Delete "{{path}}"'
+
+media_folder:  "images/uploads"
+public_folder: "/images/uploads"
+
+# ─────────────────────────────────────────
+# ARTWORKS
+# ─────────────────────────────────────────
+collections:
+
+  - name: "artworks"
+    label: "Artworks"
+    label_singular: "Artwork"
+    folder: "_data/artworks"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    summary: "{{title}} ({{year}})"
+    extension: "json"
+    format: "json"
+    fields:
+
+      # ── Core Info ──
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        hint: "The title of the artwork as it will appear on the site."
+
+      - label: "Published"
+        name: "published"
+        widget: "boolean"
+        default: true
+        hint: "Unpublish to hide this artwork without deleting it."
+
+      - label: "Featured"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        hint: "Featured artworks appear first on the homepage and gallery."
+
+      - label: "Sort Order"
+        name: "order"
+        widget: "number"
+        default: 99
+        hint: "Lower numbers appear first. Use 1–10 for prominently featured works."
+
+      # ── Images ──
+      - label: "Main Image"
+        name: "image"
+        widget: "image"
+        hint: "Primary image shown on cards and at the top of the artwork page."
+
+      - label: "Additional Images"
+        name: "gallery_images"
+        widget: "list"
+        required: false
+        hint: "Upload multiple views, detail shots, or installation photos. These appear as thumbnails below the main image."
+        field:
+          label: "Image"
+          name: "image"
+          widget: "image"
+
+      # ── Artwork Details ──
+      - label: "Medium"
+        name: "medium"
+        widget: "string"
+        hint: "e.g. Oil on canvas, Watercolor, Acrylic on panel, Mixed media"
+
+      - label: "Dimensions"
+        name: "dimensions"
+        widget: "string"
+        required: false
+        hint: "e.g. 24\" × 36\", 60 × 90 cm"
+
+      - label: "Year Created"
+        name: "year"
+        widget: "number"
+        required: false
+        hint: "The year the work was completed."
+
+      - label: "Collection"
+        name: "collection"
+        widget: "relation"
+        collection: "collections"
+        search_fields: ["title"]
+        value_field: "{{slug}}"
+        display_fields: ["title"]
+        required: false
+        hint: "Assign this artwork to a collection / series."
+
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        required: false
+        hint: "A paragraph describing the artwork — subject, technique, inspiration, and meaning. Shown on the artwork page and used for SEO."
+
+      # ── Purchase Options ──
+      - label: "Purchase Options"
+        name: "purchase_options"
+        widget: "list"
+        required: false
+        hint: |
+          Add one entry for each purchasable format.
+          Examples: Original Painting, Framed Print, Unframed Print, Note Card Set.
+          Each option has its own price and Shopify link.
+        fields:
+          - label: "Type"
+            name: "type"
+            widget: "string"
+            hint: "e.g. Original Painting, Framed Print 16×20, Unframed Print, Note Card Set"
+
+          - label: "Description"
+            name: "description"
+            widget: "text"
+            required: false
+            hint: "Brief description of this option, e.g. 'Museum-quality giclée on archival paper, custom oak frame.'"
+
+          - label: "Price"
+            name: "price"
+            widget: "number"
+            required: false
+            hint: "Price in USD (number only, e.g. 1200). Leave blank if unlisted."
+
+          - label: "Available"
+            name: "available"
+            widget: "boolean"
+            default: true
+            hint: "Turn OFF to mark this option as Sold without removing it."
+
+          - label: "Shopify Checkout URL"
+            name: "shopify_url"
+            widget: "string"
+            required: false
+            hint: "Paste the Shopify checkout or product URL for this specific option."
+
+  # ─────────────────────────────────────────
+  # COLLECTIONS
+  # ─────────────────────────────────────────
+  - name: "collections"
+    label: "Collections"
+    label_singular: "Collection"
+    folder: "_data/collections"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    extension: "json"
+    format: "json"
+    fields:
+
+      - label: "Collection Name"
+        name: "title"
+        widget: "string"
+        hint: "The name of this series or collection."
+
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        required: false
+        hint: "A paragraph describing the themes and context of this collection."
+
+      - label: "Banner Image"
+        name: "banner_image"
+        widget: "image"
+        required: false
+        hint: "A representative image shown on the collections page and as the collection header."
+
+      - label: "Published"
+        name: "published"
+        widget: "boolean"
+        default: true
+
+      - label: "Sort Order"
+        name: "order"
+        widget: "number"
+        default: 99
+        hint: "Lower numbers appear first."
+
+  # ─────────────────────────────────────────
+  # PAGE CONTENT
+  # ─────────────────────────────────────────
+  - name: "pages"
+    label: "Page Content"
+    files:
+
+      - label: "Homepage"
+        name: "home"
+        file: "_data/pages/home.json"
+        fields:
+          - label: "Hero Headline"
+            name: "hero_headline"
+            widget: "string"
+            hint: "Large headline displayed over the hero image."
+          - label: "Hero Subtext"
+            name: "hero_sub"
+            widget: "text"
+            hint: "One or two sentences below the headline."
+          - label: "Hero Background Image"
+            name: "hero_image"
+            widget: "image"
+            required: false
+            hint: "Full-screen background image for the homepage hero. Use a high-resolution horizontal artwork."
+
+      - label: "About Page"
+        name: "about"
+        file: "_data/pages/about.json"
+        fields:
+          - label: "Artist Portrait"
+            name: "portrait"
+            widget: "image"
+            required: false
+            hint: "Portrait photo of the artist. Best as 3:4 vertical ratio."
+          - label: "Portrait Alt Text"
+            name: "portrait_alt"
+            widget: "string"
+            required: false
+            default: "Artist portrait"
+          - label: "Biography"
+            name: "bio"
+            widget: "text"
+            hint: "Artist biography — background, training, and career."
+          - label: "Artist Statement"
+            name: "statement"
+            widget: "text"
+            hint: "Statement about your creative philosophy and practice."
+          - label: "Creative Process"
+            name: "process"
+            widget: "text"
+            required: false
+            hint: "Describe how you work — materials, methods, studio practice."
+          - label: "Awards & Recognition"
+            name: "awards"
+            widget: "list"
+            required: false
+            hint: "Add awards, grants, or recognition. Most recent first."
+            fields:
+              - { label: "Year", name: "year", widget: "number" }
+              - { label: "Description", name: "description", widget: "string", hint: "e.g. 'Best in Show, Annual Juried Exhibition, Greenville SC'" }
+          - label: "Exhibitions"
+            name: "exhibitions"
+            widget: "list"
+            required: false
+            hint: "Selected solo or group exhibitions."
+            fields:
+              - { label: "Year", name: "year", widget: "number" }
+              - { label: "Description", name: "description", widget: "string", hint: "e.g. 'Solo Exhibition, Gallery Name, City, State'" }
+
+      - label: "Site Settings"
+        name: "settings"
+        file: "_data/pages/settings.json"
+        fields:
+          - { label: "Artist Name", name: "artist_name", widget: "string", default: "Capers Landrum Cauthen" }
+          - { label: "Contact Email", name: "email", widget: "string" }
+          - { label: "Footer Tagline", name: "tagline", widget: "text", hint: "One or two sentences for the footer." }
+          - { label: "Instagram URL", name: "instagram_url", widget: "string", required: false, hint: "Full URL to Instagram profile." }
+          - { label: "Facebook URL", name: "facebook_url", widget: "string", required: false }
+          - { label: "Shopify Store URL", name: "shopify_store", widget: "string", required: false, hint: "Your Shopify store base URL (optional, for reference)." }

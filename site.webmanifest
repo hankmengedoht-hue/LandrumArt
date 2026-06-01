@@ -1,0 +1,12 @@
+{
+  "name": "Capers Landrum Cauthen",
+  "short_name": "CLC Art",
+  "description": "Fine art by Capers Landrum Cauthen",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#080808",
+  "theme_color": "#080808",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

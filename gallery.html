@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Capers Landrum Cauthen</title>
+  <meta name="description" content="Browse all original paintings and prints by Capers Landrum Cauthen. Filter by collection, medium, or availability." />
+  <meta property="og:title" content="Gallery — Capers Landrum Cauthen" />
+  <meta property="og:description" content="Browse the complete gallery of original artworks by Capers Landrum Cauthen." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body data-page="gallery">
+<a class="skip-to-content" href="#main-content">Skip to main content</a>
+
+<header class="site-header" id="site-header">
+  <div class="container nav-inner">
+    <a href="/index.html" class="logo">
+      <span class="logo-name">Capers Landrum Cauthen</span>
+      <span class="logo-sub">Fine Art</span>
+    </a>
+    <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+      <a href="/gallery.html"     class="nav-link active">Gallery</a>
+      <a href="/collections.html" class="nav-link">Collections</a>
+      <a href="/about.html"       class="nav-link">About</a>
+      <a href="/contact.html"     class="nav-link nav-link-cta">Contact</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <div class="page-header">
+    <div class="container">
+      <span class="section-eyebrow">All Works</span>
+      <h1>Gallery</h1>
+      <div class="divider"></div>
+      <p class="lead">Browse the complete collection of original paintings and prints.</p>
+    </div>
+  </div>
+
+  <section class="section" style="padding-top:2rem">
+    <div class="container">
+
+      <!-- Toolbar -->
+      <div class="gallery-toolbar">
+        <div class="gallery-search">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="8.5" cy="8.5" r="5.5"/><line x1="13.5" y1="13.5" x2="18" y2="18"/>
+          </svg>
+          <input type="search" id="gallery-search" placeholder="Search artworks…" aria-label="Search artworks" />
+        </div>
+
+        <div class="filter-group" id="filter-collections" role="group" aria-label="Filter by collection">
+          <!-- Populated by JS -->
+          <button class="filter-btn active" data-col="all">All</button>
+        </div>
+
+        <select class="filter-select" id="filter-medium" aria-label="Filter by medium">
+          <option value="all">All Mediums</option>
+        </select>
+
+        <div class="filter-group" role="group" aria-label="Filter by availability">
+          <button class="filter-btn active" data-avail="all">All</button>
+          <button class="filter-btn" data-avail="available">Available</button>
+          <button class="filter-btn" data-avail="sold">Sold</button>
+        </div>
+
+        <select class="filter-select" id="sort-select" aria-label="Sort artworks">
+          <option value="featured">Featured First</option>
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="title-a">Title A–Z</option>
+          <option value="title-z">Title Z–A</option>
+        </select>
+
+        <span class="gallery-count" id="gallery-count" aria-live="polite"></span>
+      </div>
+
+      <!-- Grid -->
+      <div class="artwork-grid" id="gallery-grid" aria-label="Artwork gallery">
+        <div class="loading-dots" style="grid-column:1/-1"><span></span><span></span><span></span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="cta-banner fade-in">
+    <div class="container">
+      <span class="section-eyebrow">Don't See What You're Looking For?</span>
+      <h2>Commission an Original</h2>
+      <p class="lead">Capers accepts commissions for custom paintings, portraits, and landscapes.</p>
+      <div class="cta-actions">
+        <a href="/contact.html" class="btn btn-accent">Inquire About a Commission</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="/index.html" class="logo">
+        <span class="logo-name">Capers Landrum Cauthen</span>
+        <span class="logo-sub">Fine Art</span>
+      </a>
+      <p class="footer-tagline" data-cms="tagline">Original paintings and fine art prints from the American Lowcountry.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Gallery</h5>
+      <a href="/gallery.html">All Artworks</a>
+      <a href="/collections.html">Collections</a>
+    </div>
+    <div class="footer-col">
+      <h5>Artist</h5>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Connect</h5>
+      <a href="#" data-cms="instagram">Instagram</a>
+      <a href="#" data-cms="facebook">Facebook</a>
+    </div>
+  </div>
+  <div class="footer-bottom container">
+    <p>&copy; 2025 Capers Landrum Cauthen. All rights reserved.</p>
+  </div>
+</footer>
+
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+  <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)" aria-label="Previous">&#8249;</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+  <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)" aria-label="Next">&#8250;</button>
+</div>
+
+<script src="/main.js"></script>
+</body>
+</html>

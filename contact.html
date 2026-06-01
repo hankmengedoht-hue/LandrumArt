@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Capers Landrum Cauthen</title>
+  <meta name="description" content="Contact Capers Landrum Cauthen — commissions, inquiries, and purchasing questions." />
+  <meta property="og:title" content="Contact — Capers Landrum Cauthen" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body data-page="contact">
+<a class="skip-to-content" href="#main-content">Skip to main content</a>
+
+<header class="site-header" id="site-header">
+  <div class="container nav-inner">
+    <a href="/index.html" class="logo">
+      <span class="logo-name">Capers Landrum Cauthen</span>
+      <span class="logo-sub">Fine Art</span>
+    </a>
+    <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+      <a href="/gallery.html"     class="nav-link">Gallery</a>
+      <a href="/collections.html" class="nav-link">Collections</a>
+      <a href="/about.html"       class="nav-link">About</a>
+      <a href="/contact.html"     class="nav-link active nav-link-cta">Contact</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <div class="contact-page">
+    <div class="container">
+
+      <div style="text-align:center;margin-bottom:3.5rem" class="fade-in">
+        <span class="section-eyebrow">Reach Out</span>
+        <h1 style="font-style:italic;font-weight:300;margin-bottom:.75rem">Get in Touch</h1>
+        <div class="divider"></div>
+      </div>
+
+      <div class="contact-layout">
+
+        <!-- Contact info -->
+        <div class="contact-info fade-in">
+          <h2>Let's Connect</h2>
+          <p>Whether you're interested in purchasing an original, commissioning a custom work, licensing an image, or simply have a question — reach out and we'll respond promptly.</p>
+
+          <div class="contact-detail">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="#" id="contact-email-link" data-cms="email">contact@caperslandrum.com</a>
+          </div>
+
+          <div class="social-links">
+            <a href="#" class="social-link" data-cms="instagram" target="_blank" rel="noopener">Instagram</a>
+            <a href="#" class="social-link" data-cms="facebook"  target="_blank" rel="noopener">Facebook</a>
+          </div>
+
+          <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+            <h3 style="font-family:var(--font-serif);font-size:1.1rem;font-weight:600;margin-bottom:.75rem;font-style:italic">Commission Inquiries</h3>
+            <p style="font-size:.88rem;color:var(--muted);max-width:none;line-height:1.75">
+              Capers accepts commissions for original paintings. Please include the subject, desired dimensions, and any reference images in your message. Response time is typically 1–3 business days.
+            </p>
+          </div>
+        </div>
+
+        <!-- Contact form -->
+        <div class="fade-in">
+
+          <!-- General Contact Form -->
+          <form class="contact-form" id="contact-form"
+            action="https://formspree.io/f/YOUR_FORM_ID"
+            method="POST">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="name">Name</label>
+                <input class="form-input" type="text" id="name" name="name" required placeholder="Your name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input class="form-input" type="email" id="email" name="email" required placeholder="your@email.com" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="subject">Subject</label>
+              <select class="form-select" id="subject" name="subject">
+                <option value="">Select a topic</option>
+                <option value="Purchase Inquiry">Purchase Inquiry</option>
+                <option value="Commission Request">Commission Request</option>
+                <option value="Print / Licensing">Print / Licensing</option>
+                <option value="Press / Media">Press / Media</option>
+                <option value="General Question">General Question</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="artwork">Artwork or Collection (optional)</label>
+              <input class="form-input" type="text" id="artwork" name="artwork" placeholder="Which artwork or collection are you asking about?" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">Message</label>
+              <textarea class="form-textarea" id="message" name="message" required rows="6"
+                placeholder="Tell us what you're looking for. For commissions, please describe the subject, size, and any reference images you have in mind."></textarea>
+            </div>
+            <input type="hidden" name="_subject" value="New inquiry from landrumcauthen.com" />
+            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+            <button type="submit" class="btn btn-accent btn-lg btn-block">Send Message</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="/index.html" class="logo">
+        <span class="logo-name">Capers Landrum Cauthen</span>
+        <span class="logo-sub">Fine Art</span>
+      </a>
+      <p class="footer-tagline" data-cms="tagline">Original paintings and fine art prints from the American Lowcountry.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Gallery</h5>
+      <a href="/gallery.html">All Artworks</a>
+      <a href="/collections.html">Collections</a>
+    </div>
+    <div class="footer-col">
+      <h5>Artist</h5>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Connect</h5>
+      <a href="#" data-cms="instagram">Instagram</a>
+      <a href="#" data-cms="facebook">Facebook</a>
+    </div>
+  </div>
+  <div class="footer-bottom container">
+    <p>&copy; 2025 Capers Landrum Cauthen. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/main.js"></script>
+</body>
+</html>
