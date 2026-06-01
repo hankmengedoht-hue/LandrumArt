@@ -830,12 +830,14 @@ function _buildShopInfo(data) {
   if (data.description) {
     h += `<p class="dp-desc">${esc(data.description)}</p>`;
   }
-  h += avail ? `<span class="dp-avail-badge">Available</span>` : `<span class="dp-sold-badge">Sold Out</span>`;
-  if (avail && data.shopify_url) {
-    h += `<a href="${esc(data.shopify_url)}" target="_blank" rel="noopener noreferrer"
-      class="dp-shop-buy" style="padding:.75rem 1.5rem;font-size:.75rem">
+  if (!avail) {
+    h += `<span class="dp-sold-badge">Sold Out</span>`;
+  } else if (data.shopify_url) {
+    h += `<a href="${esc(data.shopify_url)}" target="_blank" rel="noopener noreferrer" class="dp-buy-cta">
       Buy Now${data.price ? ' — ' + fmt(data.price) : ''}
     </a>`;
+  } else {
+    h += `<a href="/contact.html" class="dp-buy-cta dp-buy-cta-contact">Inquire to Purchase</a>`;
   }
   h += `<div class="dp-footer-actions">
     <a href="/contact.html" class="dp-footer-link">Questions? Contact the Artist</a>
