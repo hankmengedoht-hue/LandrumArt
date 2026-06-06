@@ -237,21 +237,8 @@ async function initGallery() {
 
   let searchVal   = '';
   let activeCol   = urlCol;
-  let activeMed   = 'all';
   let activeAvail = 'all';
   let sortBy      = 'featured';
-
-  // Populate medium dropdown
-  const medSelect = document.getElementById('filter-medium');
-  if (medSelect) {
-    const mediums = [...new Set(published.map(a => a.medium).filter(Boolean))].sort();
-    mediums.forEach(m => {
-      const opt = document.createElement('option');
-      opt.value = m; opt.textContent = m;
-      medSelect.appendChild(opt);
-    });
-    medSelect.addEventListener('change', e => { activeMed = e.target.value; render(); });
-  }
 
   // Collection filter buttons
   const colWrap = document.getElementById('filter-collections');
@@ -314,7 +301,6 @@ async function initGallery() {
         if (!hay.includes(searchVal)) return false;
       }
       if (activeCol !== 'all' && a.collection !== activeCol) return false;
-      if (activeMed !== 'all' && a.medium !== activeMed) return false;
       if (activeAvail === 'available' && isAllSold(a.purchase_options)) return false;
       if (activeAvail === 'sold' && !isAllSold(a.purchase_options)) return false;
       return true;

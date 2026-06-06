@@ -72,11 +72,6 @@ collections:
           widget: "image"
 
       # ── Artwork Details ──
-      - label: "Medium"
-        name: "medium"
-        widget: "string"
-        hint: "e.g. Oil on canvas, Watercolor, Acrylic on panel, Mixed media"
-
       - label: "Dimensions"
         name: "dimensions"
         widget: "string"
