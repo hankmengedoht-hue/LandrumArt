@@ -190,7 +190,7 @@ async function initHomepage() {
     const bg  = document.getElementById('hero-bg-img');
     if (h1 && home.hero_headline) h1.textContent = home.hero_headline;
     if (sub && home.hero_sub)     sub.textContent = home.hero_sub;
-    if (bg && home.hero_image)  { bg.src = home.hero_image; bg.style.display = ''; }
+    if (bg && home.hero_image)  { bg.src = home.hero_image; bg.style.display = 'block'; }
   }
 
   // Stats
