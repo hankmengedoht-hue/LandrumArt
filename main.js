@@ -153,7 +153,7 @@ function artworkCard(a, collectionName) {
         ${collectionName ? `<div class="card-collection">${esc(collectionName)}</div>` : ''}
         <div class="card-title">${esc(a.title)}</div>
         <div class="card-meta">${[a.medium, a.year].filter(Boolean).map(esc).join(' · ')}</div>
-        ${mp !== null ? `<div class="card-price">${sold ? 'Sold' : 'From ' + fmt(mp)}</div>` : ''}
+        ${mp !== null ? `<div class="card-price">${sold ? 'Sold' : fmt(mp)}</div>` : ''}
       </div>
     </article>`;
 }
@@ -768,7 +768,7 @@ function _buildArtworkInfo(data) {
   h += `<div>
     <h2 class="dp-title">${esc(data.title || '')}</h2>`;
   if (mp !== null) {
-    h += `<div class="dp-price-summary">${sold ? 'Sold' : 'From ' + fmt(mp)}</div>`;
+    h += `<div class="dp-price-summary">${sold ? 'Sold' : fmt(mp)}</div>`;
   }
   h += `</div>`;
 
