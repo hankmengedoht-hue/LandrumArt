@@ -113,7 +113,10 @@ p { max-width: 68ch; }
   display: flex;
   align-items: center;
   transition: background .3s, border-color .3s, backdrop-filter .3s;
-  border-bottom: 1px solid transparent;
+  background: rgba(8,8,8,.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,.08);
 }
 .site-header.scrolled {
   background: rgba(8,8,8,.94);
