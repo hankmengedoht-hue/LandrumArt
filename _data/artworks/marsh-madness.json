@@ -1,0 +1,22 @@
+{
+  "title": "Marsh Madness",
+  "published": true,
+  "featured": false,
+  "order": 21,
+  "image": "/images/uploads/marsh-madness.jpg",
+  "gallery_images": [],
+  "medium": "Oil on Canvas",
+  "dimensions": "10 x 8",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 225,
+      "available": true,
+      "shopify_url": ""
+    }
+  ]
+}

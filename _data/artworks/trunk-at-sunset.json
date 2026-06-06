@@ -1,0 +1,22 @@
+{
+  "title": "Trunk at Sunset",
+  "published": true,
+  "featured": false,
+  "order": 5,
+  "image": "/images/uploads/trunk-at-sunset.jpg",
+  "gallery_images": [],
+  "medium": "Oil on Canvas",
+  "dimensions": "18 x 14",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 295,
+      "available": true,
+      "shopify_url": ""
+    }
+  ]
+}

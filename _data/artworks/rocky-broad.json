@@ -1,0 +1,22 @@
+{
+  "title": "Rocky Broad",
+  "published": true,
+  "featured": false,
+  "order": 15,
+  "image": "/images/uploads/rocky-broad.jpg",
+  "gallery_images": [],
+  "medium": "Oil on Canvas",
+  "dimensions": "20 x 16",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 495,
+      "available": true,
+      "shopify_url": ""
+    }
+  ]
+}
