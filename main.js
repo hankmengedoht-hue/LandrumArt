@@ -258,12 +258,11 @@ async function initGallery() {
     });
   }
 
-  // Availability buttons — click active button again to deselect (show all)
+  // Availability buttons — exclusive three-way toggle
   document.querySelectorAll('[data-avail]').forEach(btn => btn.addEventListener('click', () => {
-    const wasActive = btn.classList.contains('active');
     document.querySelectorAll('[data-avail]').forEach(b => b.classList.remove('active'));
-    if (!wasActive) { btn.classList.add('active'); activeAvail = btn.dataset.avail; }
-    else { activeAvail = 'all'; }
+    btn.classList.add('active');
+    activeAvail = btn.dataset.avail;
     render();
   }));
 
