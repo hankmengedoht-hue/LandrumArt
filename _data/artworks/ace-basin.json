@@ -1,0 +1,22 @@
+{
+  "title": "Ace Basin",
+  "published": true,
+  "featured": false,
+  "order": 40,
+  "image": "",
+  "gallery_images": [],
+  "medium": "",
+  "dimensions": "40 x 30",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 2450,
+      "available": true,
+      "shopify_url": ""
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Green Valley",
+  "published": true,
+  "featured": false,
+  "order": 25,
+  "image": "/images/uploads/green-valley.jpg",
+  "gallery_images": [],
+  "medium": "",
+  "dimensions": "20 x 16",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 495,
+      "available": true,
+      "shopify_url": ""
+    }
+  ]
+}

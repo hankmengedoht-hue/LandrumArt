@@ -1,0 +1,22 @@
+{
+  "title": "Rocky River",
+  "published": true,
+  "featured": false,
+  "order": 14,
+  "image": "/images/uploads/rocky-river.jpg",
+  "gallery_images": [],
+  "medium": "",
+  "dimensions": "20 x 16",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 495,
+      "available": true,
+      "shopify_url": ""
+    }
+  ]
+}

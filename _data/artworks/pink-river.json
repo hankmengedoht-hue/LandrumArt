@@ -1,0 +1,22 @@
+{
+  "title": "Pink River",
+  "published": true,
+  "featured": false,
+  "order": 17,
+  "image": "/images/uploads/pink-river.jpg",
+  "gallery_images": [],
+  "medium": "",
+  "dimensions": "30 x 10",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 495,
+      "available": true,
+      "shopify_url": ""
+    }
+  ]
+}

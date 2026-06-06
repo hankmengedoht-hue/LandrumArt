@@ -1,0 +1,22 @@
+{
+  "title": "Panoramic",
+  "published": true,
+  "featured": false,
+  "order": 18,
+  "image": "/images/uploads/panoramic.jpg",
+  "gallery_images": [],
+  "medium": "",
+  "dimensions": "36 x 12",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 950,
+      "available": true,
+      "shopify_url": ""
+    }
+  ]
+}

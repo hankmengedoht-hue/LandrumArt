@@ -1,0 +1,22 @@
+{
+  "title": "Expanse",
+  "published": true,
+  "featured": false,
+  "order": 30,
+  "image": "/images/uploads/expanse.jpg",
+  "gallery_images": [],
+  "medium": "",
+  "dimensions": "60 x 20",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 2450,
+      "available": true,
+      "shopify_url": ""
+    }
+  ]
+}

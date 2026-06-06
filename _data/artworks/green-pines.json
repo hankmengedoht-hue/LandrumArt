@@ -1,0 +1,22 @@
+{
+  "title": "Green Pines",
+  "published": true,
+  "featured": false,
+  "order": 26,
+  "image": "/images/uploads/green-pines.jpg",
+  "gallery_images": [],
+  "medium": "",
+  "dimensions": "24 x 18",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 495,
+      "available": true,
+      "shopify_url": ""
+    }
+  ]
+}

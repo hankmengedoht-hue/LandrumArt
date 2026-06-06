@@ -1,0 +1,24 @@
+{
+  "title": "Magic Hour",
+  "published": true,
+  "featured": false,
+  "order": 22,
+  "image": "/images/uploads/magic-hour.jpg",
+  "gallery_images": [
+    "/images/uploads/magic-hour-2.jpg"
+  ],
+  "medium": "",
+  "dimensions": "33 x 22",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 950,
+      "available": true,
+      "shopify_url": ""
+    }
+  ]
+}
