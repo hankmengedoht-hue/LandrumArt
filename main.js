@@ -258,11 +258,12 @@ async function initGallery() {
     });
   }
 
-  // Availability buttons
+  // Availability buttons — click active button again to deselect (show all)
   document.querySelectorAll('[data-avail]').forEach(btn => btn.addEventListener('click', () => {
+    const wasActive = btn.classList.contains('active');
     document.querySelectorAll('[data-avail]').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeAvail = btn.dataset.avail;
+    if (!wasActive) { btn.classList.add('active'); activeAvail = btn.dataset.avail; }
+    else { activeAvail = 'all'; }
     render();
   }));
 
