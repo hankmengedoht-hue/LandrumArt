@@ -321,6 +321,16 @@ collections:
             required: false
             hint: "Full-width background image displayed behind the Collections page header. Use a high-resolution horizontal artwork."
 
+      - label: "Shop Page"
+        name: "shop-page"
+        file: "_data/pages/shop.json"
+        fields:
+          - label: "Background Image"
+            name: "background_image"
+            widget: "image"
+            required: false
+            hint: "Full-width background image displayed behind the Shop page header. Use a high-resolution horizontal artwork."
+
       - label: "Site Settings"
         name: "settings"
         file: "_data/pages/settings.json"

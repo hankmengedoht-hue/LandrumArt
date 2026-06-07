@@ -856,7 +856,10 @@ document.getElementById('dp-close')?.addEventListener('click', closeDetailPanel)
 
 // ── SHOP PAGE ──
 async function initShop() {
-  const items = await loadAll('shop-items');
+  const [items, pageData] = await Promise.all([
+    loadAll('shop-items'),
+    fetchJSON('/_data/pages/shop.json')
+  ]);
   const published = items
     .filter(i => i.published !== false)
     .sort((a, b) => (a.order || 99) - (b.order || 99));
@@ -867,6 +870,11 @@ async function initShop() {
   grid.innerHTML = published.length
     ? published.map(shopItemCard).join('')
     : '<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:4rem 0">No items available yet.</p>';
+
+  if (pageData?.background_image) {
+    const bgImg = document.getElementById('shop-bg-img');
+    if (bgImg) { bgImg.src = pageData.background_image; bgImg.style.display = ''; }
+  }
 
   applySettings();
 }
