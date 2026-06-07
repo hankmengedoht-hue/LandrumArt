@@ -287,7 +287,7 @@ async function initGallery() {
       switch (sortBy) {
         case 'featured': {
           if (a.featured !== b.featured) return a.featured ? -1 : 1;
-          return (a.order||99) - (b.order||99);
+          return (a.title||'').localeCompare(b.title||'');
         }
         case 'newest':  return (b.year||0) - (a.year||0);
         case 'oldest':  return (a.year||0) - (b.year||0);
