@@ -5,10 +5,9 @@
   "order": 36,
   "image": "/images/uploads/Ace Basin Sunset Series 4 10x8 195.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
   "dimensions": "10 x 8",
   "year": null,
-  "collection": "",
+  "collection": "ace-basin-collection",
   "description": "",
   "purchase_options": [
     {
@@ -18,5 +17,6 @@
       "available": true,
       "shopify_url": ""
     }
-  ]
+  ],
+  "medium": "Oil on Canvas"
 }
