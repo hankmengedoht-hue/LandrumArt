@@ -924,14 +924,11 @@ p { max-width: 68ch; }
 }
 .page-header h1 { font-style: italic; font-weight: 300; margin-bottom: .75rem; }
 .page-header .lead { margin: 0 auto; }
-.page-header-bg {
+.page-header.has-bg::before {
+  content: '';
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  opacity: 0.28;
+  background: rgba(8,8,8,.65);
   pointer-events: none;
 }
 

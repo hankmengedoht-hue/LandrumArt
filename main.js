@@ -503,8 +503,13 @@ async function initCollections() {
       : '<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:4rem 0;">No collections yet.</p>';
   }
   if (pageData?.background_image) {
-    const bgImg = document.getElementById('collections-bg-img');
-    if (bgImg) { bgImg.src = pageData.background_image; bgImg.style.display = ''; }
+    const header = document.getElementById('collections-page-header');
+    if (header) {
+      header.style.backgroundImage    = `url('${pageData.background_image}')`;
+      header.style.backgroundSize     = 'cover';
+      header.style.backgroundPosition = 'center';
+      header.classList.add('has-bg');
+    }
   }
   applySettings();
 }
@@ -872,8 +877,13 @@ async function initShop() {
     : '<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:4rem 0">No items available yet.</p>';
 
   if (pageData?.background_image) {
-    const bgImg = document.getElementById('shop-bg-img');
-    if (bgImg) { bgImg.src = pageData.background_image; bgImg.style.display = ''; }
+    const header = document.getElementById('shop-page-header');
+    if (header) {
+      header.style.backgroundImage    = `url('${pageData.background_image}')`;
+      header.style.backgroundSize     = 'cover';
+      header.style.backgroundPosition = 'center';
+      header.classList.add('has-bg');
+    }
   }
 
   applySettings();
