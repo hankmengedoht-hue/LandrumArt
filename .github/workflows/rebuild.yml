@@ -365,10 +365,111 @@ jobs:
               generated_artworks.append(slug)
               print(f'Generated: artwork/{slug}.html')
 
+          # ── GENERATE COLLECTION PAGES ──
+          shutil.rmtree('collection', ignore_errors=True)
+          os.makedirs('collection', exist_ok=True)
+
+          generated_collections = []
+          pub_collections = [c for c in collections if c.get('published') is not False]
+          pub_collections.sort(key=lambda c: (c.get('order', 99), c.get('title', '')))
+
+          for c in pub_collections:
+              cslug  = c['_slug']
+              ctitle = c.get('title', '')
+              cdesc  = c.get('description', '')
+              cimg   = c.get('banner_image', '')
+
+              col_artworks = [
+                  a for a in published_artworks
+                  if a.get('collection') == cslug
+              ]
+              col_artworks.sort(key=lambda a: (a.get('order', 99), a.get('title', '')))
+
+              def art_card(a):
+                  img  = a.get('image', '') or (a.get('gallery_images') or [''])[0]
+                  if img and not isinstance(img, str): img = img.get('image', '')
+                  opts = a.get('purchase_options') or []
+                  sold = opts and all(o.get('available') is False for o in opts)
+                  prices = [float(str(o.get('price',0)).replace('$','').replace(',',''))
+                            for o in opts if o.get('available') is not False and o.get('price')]
+                  price_s = fmt_price(min(prices)) if prices else ''
+                  badge = '<span class="card-badge badge-sold">Sold</span>' if sold else (
+                          '<span class="card-badge badge-featured">Featured</span>' if a.get('featured') else '')
+                  return f'''<article class="artwork-card{' featured' if a.get('featured') else ''}" role="link" tabindex="0"
+                    onclick="openArtworkPanel('{esc(a['_slug'])}')"
+                    onkeydown="if(event.key==='Enter')openArtworkPanel('{esc(a['_slug'])}')">
+                    <div class="card-image-wrap">
+                      {'<img src="' + esc(img) + '" alt="' + esc(a.get('title','')) + '" loading="lazy" />' if img else '<div class="card-image-placeholder">🖼</div>'}
+                      {badge}
+                    </div>
+                    <div class="card-info">
+                      <div class="card-title">{esc(a.get('title',''))}</div>
+                      <div class="card-meta">{esc(' · '.join(filter(None,[a.get('medium',''), str(a.get('year','')) if a.get('year') else ''])))}</div>
+                      {('<div class="card-price">' + ('Sold' if sold else price_s) + '</div>') if price_s or sold else ''}
+                    </div>
+                  </article>'''
+
+              cards_html = '\n'.join(art_card(a) for a in col_artworks) if col_artworks else \
+                  '<p style="color:var(--muted);text-align:center;padding:4rem 0;grid-column:1/-1;">No artworks in this collection yet.</p>'
+
+              count_s = f'{len(col_artworks)} work{"s" if len(col_artworks) != 1 else ""}'
+
+              page_url = f'{SITE}/collection/{cslug}.html'
+
+              ch  = head(f'{ctitle} — {ARTIST}', cdesc or f'A collection of paintings by {ARTIST}.', SITE + cimg if cimg else '', page_url, page_url)
+              ch += '</head>\n'
+              ch += f'<body data-page="collection" data-slug="{esc(cslug)}">\n'
+              ch += '<a class="skip-to-content" href="#main-content">Skip to main content</a>\n'
+              ch += nav('gallery')
+              ch += '\n<main id="main-content">\n'
+              ch += f'''
+          <div class="collection-hero{' no-image' if not cimg else ''}">
+            {'<img src="' + esc(cimg) + '" alt="' + esc(ctitle) + '" id="collection-hero-img" />' if cimg else ''}
+            <div class="collection-hero-content">
+              <nav aria-label="Breadcrumb" style="margin-bottom:.75rem">
+                <a href="/collections.html" style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,235,227,.5);font-weight:600;transition:color .2s"
+                   onmouseover="this.style.color=\'var(--accent)\'" onmouseout="this.style.color=\'rgba(240,235,227,.5)\'">
+                  ← Collections
+                </a>
+              </nav>
+              <h1 id="collection-title">{esc(ctitle)}</h1>
+              <div class="collection-hero-meta" id="collection-count">{esc(count_s)}</div>
+            </div>
+          </div>
+
+          <section class="section" style="padding-top:2.5rem">
+            <div class="container">
+              {'<p class="detail-description" style="margin-bottom:2.5rem;max-width:65ch">' + esc(cdesc) + '</p>' if cdesc else ''}
+              <div class="artwork-grid artwork-grid-md" id="collection-artworks">
+                {cards_html}
+              </div>
+            </div>
+          </section>
+
+          <section class="cta-banner fade-in">
+            <div class="container">
+              <h2>Explore More Collections</h2>
+              <div class="cta-actions">
+                <a href="/collections.html" class="btn btn-accent">All Collections</a>
+                <a href="/gallery.html" class="btn btn-ghost">Full Gallery</a>
+              </div>
+            </div>
+          </section>'''
+              ch += '\n</main>\n'
+              ch += footer()
+              ch += LIGHTBOX
+              ch += '\n<script src="/main.js"></script>\n</body>\n</html>\n'
+
+              with open(f'collection/{cslug}.html', 'w', encoding='utf-8') as fh:
+                  fh.write(ch)
+              generated_collections.append(cslug)
+              print(f'Generated: collection/{cslug}.html')
+
           # ── GENERATE SITEMAP ──
           core = [
               ('', '1.0', 'weekly'),
               ('gallery.html', '0.9', 'weekly'),
+              ('collections.html', '0.8', 'weekly'),
               ('shop.html', '0.8', 'weekly'),
               ('about.html', '0.7', 'monthly'),
               ('contact.html', '0.7', 'monthly'),
@@ -384,11 +485,14 @@ jobs:
           for slug in sorted(generated_artworks):
               sm += f'  <url><loc>{SITE}/artwork/{slug}.html</loc>'
               sm += f'<lastmod>{TODAY}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>\n'
+          for slug in sorted(generated_collections):
+              sm += f'  <url><loc>{SITE}/collection/{slug}.html</loc>'
+              sm += f'<lastmod>{TODAY}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>\n'
           sm += '</urlset>\n'
 
           with open('sitemap.xml', 'w', encoding='utf-8') as fh:
               fh.write(sm)
-          print(f'Generated sitemap.xml: {len(core) + len(generated_artworks)} URLs')
+          print(f'Generated sitemap.xml: {len(core) + len(generated_artworks) + len(generated_collections)} URLs')
           PYEOF
 
       - name: Commit if changed
@@ -398,10 +502,11 @@ jobs:
             _data/collections/manifest.json \
             _data/shop-items/manifest.json \
             artwork/ \
+            collection/ \
             sitemap.xml
           if git diff --staged --quiet; then
             echo "Everything already up to date."
           else
-            git commit -m "Auto-rebuild artwork pages and sitemap [skip ci]"
+            git commit -m "Auto-rebuild artwork pages, collection pages, and sitemap [skip ci]"
             git push
           fi
