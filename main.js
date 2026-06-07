@@ -489,7 +489,11 @@ function renderArtworkDetail(artwork, colMap) {
 
 // ── COLLECTIONS PAGE ──
 async function initCollections() {
-  const [collections, artworks] = await Promise.all([loadAll('collections'), loadAll('artworks')]);
+  const [collections, artworks, pageData] = await Promise.all([
+    loadAll('collections'),
+    loadAll('artworks'),
+    fetchJSON('/_data/pages/collections.json')
+  ]);
   const published = collections.filter(c => c.published !== false).sort((a,b)=>(a.order||99)-(b.order||99));
   const artPub    = artworks.filter(a => a.published !== false);
   const grid      = document.getElementById('collections-grid');
@@ -497,6 +501,10 @@ async function initCollections() {
     grid.innerHTML = published.length
       ? published.map(c => collectionCard(c, artPub)).join('')
       : '<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:4rem 0;">No collections yet.</p>';
+  }
+  if (pageData?.background_image) {
+    const bgImg = document.getElementById('collections-bg-img');
+    if (bgImg) { bgImg.src = pageData.background_image; bgImg.style.display = ''; }
   }
   applySettings();
 }

@@ -311,6 +311,16 @@ collections:
               - { label: "Year", name: "year", widget: "number" }
               - { label: "Description", name: "description", widget: "string", hint: "e.g. 'Solo Exhibition, Gallery Name, City, State'" }
 
+      - label: "Collections Page"
+        name: "collections-page"
+        file: "_data/pages/collections.json"
+        fields:
+          - label: "Background Image"
+            name: "background_image"
+            widget: "image"
+            required: false
+            hint: "Full-width background image displayed behind the Collections page header. Use a high-resolution horizontal artwork."
+
       - label: "Site Settings"
         name: "settings"
         file: "_data/pages/settings.json"
