@@ -1,7 +1,7 @@
 {
   "title": "Storm at Rockville",
   "published": true,
-  "featured": false,
+  "featured": true,
   "order": 9,
   "image": "/images/uploads/storm-at-rockville.jpg",
   "gallery_images": [],
