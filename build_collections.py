@@ -35,7 +35,7 @@ HOME_SVG = '<svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor" 
 
 def nav_html():
     home  = f'<a href="/index.html" class="nav-link nav-home" aria-label="Home">{HOME_SVG}</a>'
-    links = '<a href="/gallery.html" class="nav-link">Gallery</a><a href="/shop.html" class="nav-link">Shop</a><a href="/about.html" class="nav-link">About</a>'
+    links = '<a href="/gallery.html" class="nav-link">Gallery</a><a href="/collections.html" class="nav-link">Collections</a><a href="/shop.html" class="nav-link">Shop</a><a href="/about.html" class="nav-link">About</a>'
     cta   = '<a href="/contact.html" class="nav-link nav-link-cta">Contact</a>'
     return f"""
 <header class="site-header scrolled" id="site-header">

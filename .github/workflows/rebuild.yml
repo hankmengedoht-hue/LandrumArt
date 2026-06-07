@@ -112,6 +112,7 @@ jobs:
           def nav(active=''):
               links = [
                   ('/gallery.html','gallery','Gallery'),
+                  ('/collections.html','collections','Collections'),
                   ('/shop.html','shop','Shop'),
                   ('/about.html','about','About'),
                   ('/contact.html','contact','Contact'),
