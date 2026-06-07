@@ -62,6 +62,10 @@ async function loadSettings() {
 }
 
 // ── FORMATTERS ──
+function safeUrl(url) {
+  if (!url) return '';
+  return /^https?:\/\//i.test(url) ? url : 'https://' + url;
+}
 function esc(s) {
   return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
@@ -464,7 +468,7 @@ function renderArtworkDetail(artwork, colMap) {
                 ${avail ? 'Available' : 'Sold'}
               </div>
               ${avail && o.shopify_url
-                ? `<a href="${esc(o.shopify_url)}" target="_blank" rel="noopener noreferrer" class="btn-shopify">Purchase${o.price ? ' — ' + fmt(o.price) : ''}</a>`
+                ? `<a href="${esc(safeUrl(o.shopify_url))}" target="_blank" rel="noopener noreferrer" class="btn-shopify">Purchase${o.price ? ' — ' + fmt(o.price) : ''}</a>`
                 : !avail
                   ? `<button class="btn-sold" disabled>Sold</button>`
                   : '<p style="font-size:.8rem;color:var(--muted)">Contact for purchasing information.</p>'
@@ -787,7 +791,7 @@ function _buildArtworkInfo(data) {
         ${o.description ? `<p class="dp-option-desc">${esc(o.description)}</p>` : ''}
         ${avail ? `<span class="dp-avail-badge">Available</span>` : `<span class="dp-sold-badge">Sold</span>`}
         ${avail && o.shopify_url
-          ? `<a href="${esc(o.shopify_url)}" target="_blank" rel="noopener noreferrer" class="dp-shop-buy">Purchase${o.price ? ' — ' + fmt(o.price) : ''}</a>`
+          ? `<a href="${esc(safeUrl(o.shopify_url))}" target="_blank" rel="noopener noreferrer" class="dp-shop-buy">Purchase${o.price ? ' — ' + fmt(o.price) : ''}</a>`
           : ''}
       </div>`;
     });
@@ -819,7 +823,7 @@ function _buildShopInfo(data) {
   if (!avail) {
     h += `<span class="dp-sold-badge">Sold Out</span>`;
   } else if (data.shopify_url) {
-    h += `<a href="${esc(data.shopify_url)}" target="_blank" rel="noopener noreferrer" class="dp-buy-cta">
+    h += `<a href="${esc(safeUrl(data.shopify_url))}" target="_blank" rel="noopener noreferrer" class="dp-buy-cta">
       Buy Now${data.price ? ' — ' + fmt(data.price) : ''}
     </a>`;
   } else {
