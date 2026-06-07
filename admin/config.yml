@@ -92,7 +92,7 @@ collections:
         value_field: "{{slug}}"
         display_fields: ["title"]
         required: false
-        hint: "Assign this artwork to a collection / series."
+        hint: "Assign this artwork to a series or collection. To create a new collection, go to 'Collections' in the left sidebar, click '+ New Collection', then come back here."
 
       - label: "Description"
         name: "description"
