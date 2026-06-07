@@ -204,8 +204,8 @@ async function initHomepage() {
   // Featured artworks
   const featEl = document.getElementById('featured-artworks');
   if (featEl) {
-    const featured = published.filter(a => a.featured).sort((a,b) => (a.order||99)-(b.order||99));
-    const show     = (featured.length ? featured : published.sort((a,b)=>(a.order||99)-(b.order||99))).slice(0, 6);
+    const featured = published.filter(a => a.featured).sort((a,b) => (a.title||'').localeCompare(b.title||''));
+    const show     = (featured.length ? featured : published.sort((a,b)=>(a.title||'').localeCompare(b.title||''))).slice(0, 6);
     featEl.innerHTML = show.length
       ? show.map(a => artworkCard(a)).join('')
       : '<p style="color:var(--muted);grid-column:1/-1;text-align:center;">No artworks yet.</p>';
