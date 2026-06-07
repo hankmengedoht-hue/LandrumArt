@@ -1,7 +1,7 @@
 {
   "title": "Ace Basin",
   "published": true,
-  "featured": false,
+  "featured": true,
   "order": 40,
   "image": "/images/uploads/Ace Basin 40x30 $2450.jpg",
   "gallery_images": [],
@@ -16,7 +16,7 @@
       "description": "",
       "price": 2450,
       "available": true,
-      "shopify_url": "https://mengedohtcnc.com"
+      "shopify_url": "mengedohtcnc.com"
     }
   ]
 }
