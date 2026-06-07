@@ -247,19 +247,22 @@ async function initGallery() {
   // Collection filter buttons
   const colWrap = document.getElementById('filter-collections');
   if (colWrap) {
-    colWrap.innerHTML =
-      `<button class="filter-btn${activeCol === 'all' ? ' active' : ''}" data-col="all">All</button>` +
-      colPublished.map(c =>
+    if (!colPublished.length) {
+      colWrap.style.display = 'none';
+    } else {
+      colWrap.innerHTML = colPublished.map(c =>
         `<button class="filter-btn${activeCol === c._slug ? ' active' : ''}" data-col="${esc(c._slug)}">${esc(c.title)}</button>`
       ).join('');
-    colWrap.addEventListener('click', e => {
-      const btn = e.target.closest('.filter-btn[data-col]');
-      if (!btn) return;
-      colWrap.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeCol = btn.dataset.col;
-      render();
-    });
+      colWrap.addEventListener('click', e => {
+        const btn = e.target.closest('.filter-btn[data-col]');
+        if (!btn) return;
+        const wasActive = btn.classList.contains('active');
+        colWrap.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        if (!wasActive) { btn.classList.add('active'); activeCol = btn.dataset.col; }
+        else { activeCol = 'all'; }
+        render();
+      });
+    }
   }
 
   // Availability buttons — exclusive three-way toggle
