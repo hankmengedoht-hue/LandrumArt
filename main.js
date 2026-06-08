@@ -231,7 +231,7 @@ async function initHomepage() {
 
 // ── GALLERY PAGE ──
 async function initGallery() {
-  const [artworks, collections] = await Promise.all([loadAll('artworks'), loadAll('collections')]);
+  const [artworks, collections, pageData] = await Promise.all([loadAll('artworks'), loadAll('collections'), fetchJSON('/_data/pages/gallery.json')]);
   const published    = artworks.filter(a => a.published !== false);
   const colPublished = collections.filter(c => c.published !== false);
   const colMap       = Object.fromEntries(colPublished.map(c => [c._slug, c.title]));
@@ -329,6 +329,15 @@ async function initGallery() {
   }
 
   render();
+  if (pageData?.background_image) {
+    const header = document.getElementById('gallery-page-header');
+    if (header) {
+      header.style.backgroundImage    = `url('${pageData.background_image}')`;
+      header.style.backgroundSize     = 'cover';
+      header.style.backgroundPosition = 'center';
+      header.classList.add('has-bg');
+    }
+  }
   loadShopSection();
   applySettings();
 }
