@@ -5,7 +5,6 @@
   "order": 40,
   "image": "/images/uploads/Ace Basin 40x30 $2450.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
   "dimensions": "40 x 30",
   "year": null,
   "collection": "",
@@ -17,6 +16,14 @@
       "price": 2450,
       "available": true,
       "shopify_url": "mengedohtcnc.com"
+    },
+    {
+      "type": "Print",
+      "description": "Comes with backing and sleeve. 11x17 or 16x20",
+      "price": 125,
+      "available": true,
+      "shopify_url": ""
     }
-  ]
+  ],
+  "medium": "Oil on Canvas"
 }
