@@ -162,20 +162,6 @@ function artworkCard(a, collectionName) {
     </article>`;
 }
 
-// ── COLLECTION CARD ──
-function collectionCard(c, allArtworks) {
-  const count = (allArtworks || []).filter(a => a.collection === c._slug && a.published !== false).length;
-  return `
-    <a class="collection-card" href="/collection/${esc(c._slug)}.html">
-      ${c.banner_image
-        ? `<img src="${esc(c.banner_image)}" alt="${esc(c.title)}" loading="lazy" />`
-        : `<div class="collection-card-placeholder">🎨</div>`}
-      <div class="collection-card-overlay">
-        <div class="collection-card-title">${esc(c.title)}</div>
-        <div class="collection-card-count">${count} work${count !== 1 ? 's' : ''}</div>
-      </div>
-    </a>`;
-}
 
 // ── HOMEPAGE ──
 async function initHomepage() {
@@ -231,39 +217,12 @@ async function initHomepage() {
 
 // ── GALLERY PAGE ──
 async function initGallery() {
-  const [artworks, collections, pageData] = await Promise.all([loadAll('artworks'), loadAll('collections'), fetchJSON('/_data/pages/gallery.json')]);
-  const published    = artworks.filter(a => a.published !== false);
-  const colPublished = collections.filter(c => c.published !== false);
-  const colMap       = Object.fromEntries(colPublished.map(c => [c._slug, c.title]));
-
-  // Support ?collection=slug deep-link (e.g. from artwork detail panel)
-  const urlCol = new URLSearchParams(window.location.search).get('collection') || 'all';
+  const [artworks, pageData] = await Promise.all([loadAll('artworks'), fetchJSON('/_data/pages/gallery.json')]);
+  const published = artworks.filter(a => a.published !== false);
 
   let searchVal   = '';
-  let activeCol   = urlCol;
   let activeAvail = 'all';
   let sortBy      = 'featured';
-
-  // Collection filter buttons
-  const colWrap = document.getElementById('filter-collections');
-  if (colWrap) {
-    if (!colPublished.length) {
-      colWrap.style.display = 'none';
-    } else {
-      colWrap.innerHTML = colPublished.map(c =>
-        `<button class="filter-btn${activeCol === c._slug ? ' active' : ''}" data-col="${esc(c._slug)}">${esc(c.title)}</button>`
-      ).join('');
-      colWrap.addEventListener('click', e => {
-        const btn = e.target.closest('.filter-btn[data-col]');
-        if (!btn) return;
-        const wasActive = btn.classList.contains('active');
-        colWrap.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        if (!wasActive) { btn.classList.add('active'); activeCol = btn.dataset.col; }
-        else { activeCol = 'all'; }
-        render();
-      });
-    }
-  }
 
   // Availability buttons — exclusive three-way toggle
   document.querySelectorAll('[data-avail]').forEach(btn => btn.addEventListener('click', () => {
@@ -304,10 +263,9 @@ async function initGallery() {
   function render() {
     const filtered = published.filter(a => {
       if (searchVal) {
-        const hay = [a.title, a.medium, a.description, colMap[a.collection]].map(s => (s||'').toLowerCase()).join(' ');
+        const hay = [a.title, a.medium, a.description].map(s => (s||'').toLowerCase()).join(' ');
         if (!hay.includes(searchVal)) return false;
       }
-      if (activeCol !== 'all' && a.collection !== activeCol) return false;
       if (activeAvail === 'available' && isAllSold(a.purchase_options)) return false;
       if (activeAvail === 'sold' && !isAllSold(a.purchase_options)) return false;
       return true;
@@ -320,7 +278,7 @@ async function initGallery() {
     if (count) count.textContent = `${sorted.length} work${sorted.length !== 1 ? 's' : ''}`;
     if (grid) {
       grid.innerHTML = sorted.length
-        ? sorted.map(a => artworkCard(a, colMap[a.collection])).join('')
+        ? sorted.map(a => artworkCard(a)).join('')
         : `<div class="gallery-empty">
              <h3>No artworks found</h3>
              <p>Try adjusting your filters or search term.</p>
@@ -494,86 +452,6 @@ function renderArtworkDetail(artwork, colMap) {
       </p>`;
     }
   }
-}
-
-// ── COLLECTIONS PAGE ──
-async function initCollections() {
-  const [collections, artworks, pageData] = await Promise.all([
-    loadAll('collections'),
-    loadAll('artworks'),
-    fetchJSON('/_data/pages/collections.json')
-  ]);
-  const published = collections.filter(c => c.published !== false).sort((a,b)=>(a.order||99)-(b.order||99));
-  const artPub    = artworks.filter(a => a.published !== false);
-  const grid      = document.getElementById('collections-grid');
-  if (grid) {
-    grid.innerHTML = published.length
-      ? published.map(c => collectionCard(c, artPub)).join('')
-      : '<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:4rem 0;">No collections yet.</p>';
-  }
-  if (pageData?.background_image) {
-    const header = document.getElementById('collections-page-header');
-    if (header) {
-      header.style.backgroundImage    = `url('${pageData.background_image}')`;
-      header.style.backgroundSize     = 'cover';
-      header.style.backgroundPosition = 'center';
-      header.classList.add('has-bg');
-    }
-  }
-  applySettings();
-}
-
-// ── COLLECTION DETAIL (JS template fallback) ──
-async function initCollectionPage() {
-  let slug = document.body.dataset.slug;
-  if (!slug) {
-    const p = new URLSearchParams(window.location.search);
-    slug = p.get('id') || p.get('slug');
-  }
-  if (!slug) return;
-
-  const [collection, artworks] = await Promise.all([
-    fetchJSON(`/_data/collections/${slug}.json`),
-    loadAll('artworks')
-  ]);
-
-  if (!collection) return;
-  collection._slug = slug;
-
-  // Hero image
-  const heroImg = document.getElementById('collection-hero-img');
-  if (heroImg) {
-    if (collection.banner_image) { heroImg.src = collection.banner_image; heroImg.style.display = ''; }
-    else heroImg.closest('.collection-hero')?.classList.add('no-image');
-  }
-
-  // Title
-  const titleEl = document.getElementById('collection-title');
-  if (titleEl) titleEl.textContent = collection.title;
-
-  document.title = `${collection.title} — ${SITE_NAME}`;
-
-  // Description
-  const descEl = document.getElementById('collection-description');
-  if (descEl) {
-    descEl.textContent = collection.description || '';
-    descEl.style.display = collection.description ? '' : 'none';
-  }
-
-  // Artworks
-  const grid  = document.getElementById('collection-artworks');
-  const count = document.getElementById('collection-count');
-  if (grid) {
-    const works = artworks
-      .filter(a => a.collection === slug && a.published !== false)
-      .sort((a,b) => (a.order||99)-(b.order||99));
-    if (count) count.textContent = `${works.length} work${works.length!==1?'s':''}`;
-    grid.innerHTML = works.length
-      ? works.map(a => artworkCard(a, '')).join('')
-      : '<p style="color:var(--muted);text-align:center;padding:4rem 0;grid-column:1/-1;">No artworks in this collection yet.</p>';
-  }
-
-  applySettings();
 }
 
 // ── ABOUT PAGE ──
@@ -945,13 +823,11 @@ async function loadShopSection() {
 // ── ROUTE ──
 const page = document.body.dataset.page;
 switch (page) {
-  case 'home':        initHomepage();       break;
-  case 'gallery':     initGallery();        break;
-  case 'shop':        initShop();           break;
-  case 'artwork':     initArtworkPage();    break;
-  case 'collections': initCollections();    break;
-  case 'collection':  initCollectionPage(); break;
-  case 'about':       initAbout();          break;
-  case 'contact':     initContact();        break;
+  case 'home':    initHomepage();    break;
+  case 'gallery': initGallery();    break;
+  case 'shop':    initShop();       break;
+  case 'artwork': initArtworkPage(); break;
+  case 'about':   initAbout();      break;
+  case 'contact': initContact();    break;
   default:            applySettings();      break;
 }

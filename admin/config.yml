@@ -84,16 +84,6 @@ collections:
         required: false
         hint: "The year the work was completed."
 
-      - label: "Collection"
-        name: "collection"
-        widget: "relation"
-        collection: "collections"
-        search_fields: ["title"]
-        value_field: "{{slug}}"
-        display_fields: ["title"]
-        required: false
-        hint: "Assign this artwork to a series or collection. To create a new collection, go to 'Collections' in the left sidebar, click '+ New Collection', then come back here."
-
       - label: "Description"
         name: "description"
         widget: "text"
@@ -138,49 +128,6 @@ collections:
             widget: "string"
             required: false
             hint: "Paste the Shopify checkout or product URL for this specific option."
-
-  # ─────────────────────────────────────────
-  # COLLECTIONS
-  # ─────────────────────────────────────────
-  - name: "collections"
-    label: "Collections"
-    label_singular: "Collection"
-    folder: "_data/collections"
-    create: true
-    delete: true
-    slug: "{{slug}}"
-    summary: "{{title}}"
-    extension: "json"
-    format: "json"
-    fields:
-
-      - label: "Collection Name"
-        name: "title"
-        widget: "string"
-        hint: "The name of this series or collection."
-
-      - label: "Description"
-        name: "description"
-        widget: "text"
-        required: false
-        hint: "A paragraph describing the themes and context of this collection."
-
-      - label: "Banner Image"
-        name: "banner_image"
-        widget: "image"
-        required: false
-        hint: "A representative image shown on the collections page and as the collection header."
-
-      - label: "Published"
-        name: "published"
-        widget: "boolean"
-        default: true
-
-      - label: "Sort Order"
-        name: "order"
-        widget: "number"
-        default: 99
-        hint: "Lower numbers appear first."
 
   # ─────────────────────────────────────────
   # PRINTS & GIFTS (shop items)
@@ -320,16 +267,6 @@ collections:
             widget: "image"
             required: false
             hint: "Full-width background image displayed behind the Gallery page header. Use a high-resolution horizontal artwork."
-
-      - label: "Collections Page"
-        name: "collections-page"
-        file: "_data/pages/collections.json"
-        fields:
-          - label: "Background Image"
-            name: "background_image"
-            widget: "image"
-            required: false
-            hint: "Full-width background image displayed behind the Collections page header. Use a high-resolution horizontal artwork."
 
       - label: "Shop Page"
         name: "shop-page"
