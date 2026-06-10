@@ -480,9 +480,15 @@ async function initAbout() {
     const el = document.getElementById(id);
     if (el && text) { el.textContent = text; }
   };
-  setText('about-bio',       about.bio);
   setText('about-statement', about.statement);
-  setText('about-process',   about.process);
+
+  // Represented By
+  const repEl      = document.getElementById('about-represented-by');
+  const repSection = document.getElementById('represented-section');
+  if (repEl && about.represented_by?.length) {
+    repEl.innerHTML = about.represented_by.map(g => `<div class="recognition-item"><div class="recognition-detail">${esc(g)}</div></div>`).join('');
+    repSection?.style.setProperty('display', '');
+  }
 
   // Awards
   const awardsEl = document.getElementById('about-awards');
