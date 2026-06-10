@@ -980,9 +980,18 @@ p { max-width: 68ch; }
 
 /* ── ABOUT PAGE ── */
 .about-hero {
+  position: relative;
+  overflow: hidden;
   padding-top: calc(var(--nav-h) + 4rem);
   padding-bottom: 4rem;
   text-align: center;
+}
+.about-hero.has-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(8,8,8,.65);
+  pointer-events: none;
 }
 .about-hero h1 { font-style: italic; font-weight: 300; margin-bottom: .75rem; }
 .about-layout {

@@ -459,6 +459,16 @@ async function initAbout() {
   const about = await fetchJSON('/_data/pages/about.json');
   if (!about) { applySettings(); return; }
 
+  if (about.background_image) {
+    const hero = document.getElementById('about-hero');
+    if (hero) {
+      hero.style.backgroundImage    = `url('${about.background_image}')`;
+      hero.style.backgroundSize     = 'cover';
+      hero.style.backgroundPosition = 'center';
+      hero.classList.add('has-bg');
+    }
+  }
+
   // Portrait
   const portEl = document.getElementById('about-portrait');
   if (portEl && about.portrait) {

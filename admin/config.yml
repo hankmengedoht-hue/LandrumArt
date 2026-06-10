@@ -218,6 +218,11 @@ collections:
         name: "about"
         file: "_data/pages/about.json"
         fields:
+          - label: "Background Image"
+            name: "background_image"
+            widget: "image"
+            required: false
+            hint: "Full-width background image displayed behind the About page header."
           - label: "Artist Portrait"
             name: "portrait"
             widget: "image"
