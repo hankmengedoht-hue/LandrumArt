@@ -154,9 +154,9 @@ function artworkCard(a, collectionName) {
         ${badges.join('')}
       </div>
       <div class="card-info">
-        ${collectionName ? `<div class="card-collection">${esc(collectionName)}</div>` : ''}
         <div class="card-title">${esc(a.title)}</div>
         <div class="card-meta">${[a.medium, a.year].filter(Boolean).map(esc).join(' · ')}</div>
+        ${a.dimensions ? `<div class="card-dims">${esc(a.dimensions)}</div>` : ''}
         ${mp !== null ? `<div class="card-price">${sold ? 'Sold' : fmt(mp)}</div>` : ''}
       </div>
     </article>`;

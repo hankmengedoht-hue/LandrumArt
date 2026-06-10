@@ -460,8 +460,13 @@ p { max-width: 68ch; }
   line-height: 1.2;
 }
 .card-meta {
+  font-size: .84rem;
+  color: var(--muted);
+}
+.card-dims {
   font-size: .78rem;
   color: var(--muted);
+  margin-top: .2rem;
 }
 .card-price {
   font-family: var(--font-serif);
@@ -1450,7 +1455,7 @@ p { max-width: 68ch; }
 .dp-price-summary {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 1.05rem;
+  font-size: 1.35rem;
   color: var(--accent);
   margin-top: .35rem;
 }
