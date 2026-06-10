@@ -715,7 +715,7 @@ function _buildArtworkInfo(data) {
 function _buildShopInfo(data) {
   const avail = data.available !== false;
   let h = '';
-  h += `<div class="dp-eyebrow">Prints &amp; Gifts</div>`;
+  h += `<div class="dp-eyebrow">Notecards and Prints</div>`;
   h += `<div>
     <h2 class="dp-title" style="font-style:normal;font-weight:400;font-size:clamp(1.3rem,2vw,1.75rem)">${esc(data.name || '')}</h2>
     ${data.price ? `<div class="dp-price-summary">${fmt(data.price)}</div>` : ''}

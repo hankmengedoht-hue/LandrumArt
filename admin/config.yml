@@ -133,7 +133,7 @@ collections:
   # PRINTS & GIFTS (shop items)
   # ─────────────────────────────────────────
   - name: "shop-items"
-    label: "Prints & Gifts"
+    label: "Notecards and Prints"
     label_singular: "Item"
     folder: "_data/shop-items"
     create: true
