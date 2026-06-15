@@ -47,8 +47,45 @@
     </div>
   </div>
 
-  <section class="section" style="padding-top:2.5rem">
+  <!-- PRINTS -->
+  <section class="section prints-section" id="prints-section" style="padding-top:2.5rem;padding-bottom:4rem;border-bottom:1px solid var(--border)">
     <div class="container">
+      <div class="section-header fade-in" style="margin-bottom:2.5rem">
+        <span class="section-eyebrow">Fine Art Prints</span>
+        <h2>Prints</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="print-product">
+        <div class="print-gallery">
+          <div class="print-main-image" id="print-main-image">
+            <img id="print-main-img" src="" alt="" />
+          </div>
+          <div class="print-thumbs" id="print-thumbs"></div>
+        </div>
+        <div class="print-controls">
+          <div>
+            <span class="print-control-label">Select Painting</span>
+            <select id="print-artwork-select" class="print-select" aria-label="Select painting"></select>
+          </div>
+          <div>
+            <span class="print-control-label">Select Size</span>
+            <select id="print-size-select" class="print-select" aria-label="Select size"></select>
+          </div>
+          <div class="print-price" id="print-price-display"></div>
+          <a href="#" id="print-buy-btn" class="btn btn-accent btn-lg" target="_blank" rel="noopener noreferrer">Buy Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTECARDS -->
+  <section class="section" style="padding-top:3rem">
+    <div class="container">
+      <div class="section-header fade-in" style="margin-bottom:2rem">
+        <span class="section-eyebrow">Note Cards</span>
+        <h2>Notecards</h2>
+        <div class="divider"></div>
+      </div>
       <div class="shop-grid" id="shop-grid">
         <div class="loading-dots" style="grid-column:1/-1"><span></span><span></span><span></span></div>
       </div>

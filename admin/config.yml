@@ -283,6 +283,39 @@ collections:
             required: false
             hint: "Full-width background image displayed behind the Shop page header. Use a high-resolution horizontal artwork."
 
+      - label: "Prints — Sizes & Checkout"
+        name: "shop-prints"
+        file: "_data/pages/shop-prints.json"
+        fields:
+          - label: "Size 1 — Label"
+            name: "size_1_label"
+            widget: "string"
+            hint: "Display name shown in the size dropdown, e.g. 'Small (8 × 10 in)'"
+          - label: "Size 1 — Price"
+            name: "size_1_price"
+            widget: "number"
+            required: false
+            hint: "Price in USD (number only). Leave blank to hide price."
+          - label: "Size 1 — Checkout URL"
+            name: "size_1_url"
+            widget: "string"
+            required: false
+            hint: "Stripe or Shopify checkout URL for this print size."
+          - label: "Size 2 — Label"
+            name: "size_2_label"
+            widget: "string"
+            hint: "Display name shown in the size dropdown, e.g. 'Large (16 × 20 in)'"
+          - label: "Size 2 — Price"
+            name: "size_2_price"
+            widget: "number"
+            required: false
+            hint: "Price in USD (number only). Leave blank to hide price."
+          - label: "Size 2 — Checkout URL"
+            name: "size_2_url"
+            widget: "string"
+            required: false
+            hint: "Stripe or Shopify checkout URL for this print size."
+
       - label: "Site Settings"
         name: "settings"
         file: "_data/pages/settings.json"

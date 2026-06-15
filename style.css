@@ -534,6 +534,92 @@ p { max-width: 68ch; }
   color: var(--accent);
 }
 
+/* ── PRINT PRODUCT ── */
+.print-product {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 3rem;
+  align-items: start;
+}
+.print-main-image {
+  background: var(--bg-2);
+  border-radius: 6px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  margin-bottom: .85rem;
+  cursor: zoom-in;
+}
+.print-main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.print-thumbs {
+  display: flex;
+  gap: .5rem;
+  overflow-x: auto;
+  padding-bottom: .4rem;
+  scrollbar-width: thin;
+}
+.print-thumb {
+  flex: 0 0 72px;
+  height: 54px;
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  opacity: .45;
+  transition: opacity .15s, border-color .15s;
+}
+.print-thumb:hover { opacity: .75; }
+.print-thumb.active { opacity: 1; border-color: var(--accent); }
+.print-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.print-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  position: sticky;
+  top: calc(var(--nav-h) + 1.5rem);
+}
+.print-control-label {
+  display: block;
+  font-size: .67rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .4rem;
+}
+.print-select {
+  width: 100%;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: .7rem 2.5rem .7rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: .88rem;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a09070' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  transition: border-color .15s;
+}
+.print-select:focus { outline: none; border-color: var(--accent); }
+.print-price {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--accent);
+  min-height: 2rem;
+}
+@media (max-width: 720px) {
+  .print-product { grid-template-columns: 1fr; }
+  .print-controls { position: static; }
+}
+
 /* ── SHOP / PRINTS & GIFTS ── */
 .shop-grid {
   display: grid;

@@ -764,20 +764,25 @@ document.getElementById('dp-close')?.addEventListener('click', closeDetailPanel)
 
 // ── SHOP PAGE ──
 async function initShop() {
-  const [items, pageData] = await Promise.all([
+  const [items, artworks, pageData, printSettings] = await Promise.all([
     loadAll('shop-items'),
-    fetchJSON('/_data/pages/shop.json')
+    loadAll('artworks'),
+    fetchJSON('/_data/pages/shop.json'),
+    fetchJSON('/_data/pages/shop-prints.json')
   ]);
+
+  initPrints(artworks, printSettings);
+
   const published = items
     .filter(i => i.published !== false)
     .sort((a, b) => (a.order || 99) - (b.order || 99));
 
   const grid = document.getElementById('shop-grid');
-  if (!grid) return;
-
-  grid.innerHTML = published.length
-    ? published.map(shopItemCard).join('')
-    : '<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:4rem 0">No items available yet.</p>';
+  if (grid) {
+    grid.innerHTML = published.length
+      ? published.map(shopItemCard).join('')
+      : '<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:4rem 0">No items available yet.</p>';
+  }
 
   if (pageData?.background_image) {
     const header = document.getElementById('shop-page-header');
@@ -790,6 +795,86 @@ async function initShop() {
   }
 
   applySettings();
+}
+
+function initPrints(artworks, printSettings) {
+  const mainImg    = document.getElementById('print-main-img');
+  const thumbsEl   = document.getElementById('print-thumbs');
+  const artworkSel = document.getElementById('print-artwork-select');
+  const sizeSel    = document.getElementById('print-size-select');
+  const priceEl    = document.getElementById('print-price-display');
+  const buyBtn     = document.getElementById('print-buy-btn');
+  if (!mainImg || !artworkSel || !sizeSel || !buyBtn) return;
+
+  const works = (artworks || [])
+    .filter(a => a.published !== false)
+    .sort((a, b) => (a.order || 99) - (b.order || 99) || (a.title || '').localeCompare(b.title || ''));
+
+  const sizes = printSettings ? [
+    { label: printSettings.size_1_label, price: printSettings.size_1_price, url: printSettings.size_1_url },
+    { label: printSettings.size_2_label, price: printSettings.size_2_price, url: printSettings.size_2_url },
+  ].filter(s => s.label) : [];
+
+  // Populate artwork dropdown
+  artworkSel.innerHTML = works.map((a, i) =>
+    `<option value="${i}">${esc(a.title)}</option>`
+  ).join('');
+
+  // Populate size dropdown
+  sizeSel.innerHTML = sizes.map((s, i) =>
+    `<option value="${i}">${esc(s.label)}${s.price ? ' — ' + fmt(s.price) : ''}</option>`
+  ).join('');
+
+  // Build thumbnails
+  if (thumbsEl) {
+    thumbsEl.innerHTML = works.map((a, i) => {
+      const img = a.image || (Array.isArray(a.gallery_images) && a.gallery_images[0]) || '';
+      return `<div class="print-thumb${i === 0 ? ' active' : ''}" data-idx="${i}" tabindex="0" role="button" aria-label="${esc(a.title)}">
+        ${img ? `<img src="${esc(img)}" alt="${esc(a.title)}" loading="lazy" />` : ''}
+      </div>`;
+    }).join('');
+    thumbsEl.querySelectorAll('.print-thumb').forEach(t =>
+      t.addEventListener('click', () => selectArtwork(parseInt(t.dataset.idx)))
+    );
+  }
+
+  function getImg(a) {
+    const raw = a.image || (Array.isArray(a.gallery_images) && a.gallery_images[0]) || '';
+    return typeof raw === 'object' ? raw.image || '' : raw;
+  }
+
+  function selectArtwork(idx) {
+    const a = works[idx];
+    if (!a) return;
+    mainImg.src = getImg(a);
+    mainImg.alt = a.title;
+    artworkSel.value = idx;
+    thumbsEl?.querySelectorAll('.print-thumb').forEach((t, i) =>
+      t.classList.toggle('active', i === idx)
+    );
+    thumbsEl?.children[idx]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+
+  function updateCheckout() {
+    const size = sizes[parseInt(sizeSel.value)];
+    if (priceEl) priceEl.textContent = size?.price ? fmt(size.price) : '';
+    if (buyBtn) {
+      const url = size?.url ? safeUrl(size.url) : '';
+      buyBtn.href            = url || '#';
+      buyBtn.style.opacity   = url ? '1' : '.45';
+      buyBtn.style.cursor    = url ? '' : 'default';
+    }
+  }
+
+  artworkSel.addEventListener('change', () => selectArtwork(parseInt(artworkSel.value)));
+  sizeSel.addEventListener('change', updateCheckout);
+
+  document.getElementById('print-main-image')?.addEventListener('click', () => {
+    if (mainImg.src) openLightbox([mainImg.src], 0);
+  });
+
+  if (works.length) selectArtwork(0);
+  updateCheckout();
 }
 
 // ── PRINTS & GIFTS ──
