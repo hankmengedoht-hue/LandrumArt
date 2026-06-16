@@ -798,37 +798,48 @@ async function initShop() {
 }
 
 function initPrints(artworks, printSettings) {
-  const mainImg    = document.getElementById('print-main-img');
-  const thumbsEl   = document.getElementById('print-thumbs');
-  const artworkSel = document.getElementById('print-artwork-select');
-  const sizeSel    = document.getElementById('print-size-select');
-  const priceEl    = document.getElementById('print-price-display');
-  const buyBtn     = document.getElementById('print-buy-btn');
-  if (!mainImg || !artworkSel || !sizeSel || !buyBtn) return;
+  const mainImg  = document.getElementById('print-main-img');
+  const thumbsEl = document.getElementById('print-thumbs');
+  if (!mainImg) return;
 
-  const works = (artworks || [])
-    .filter(a => a.published !== false)
-    .sort((a, b) => (a.order || 99) - (b.order || 99) || (a.title || '').localeCompare(b.title || ''));
+  // Filter to the print-available slug list (preserves screenshot order)
+  const slugList = Array.isArray(printSettings?.print_artworks) ? printSettings.print_artworks : [];
+  const allPub   = (artworks || []).filter(a => a.published !== false);
+  const works    = slugList.length
+    ? slugList.map(s => allPub.find(a => a._slug === s)).filter(Boolean)
+    : allPub.sort((a, b) => (a.order || 99) - (b.order || 99));
 
-  const sizes = printSettings ? [
-    { label: printSettings.size_1_label, price: printSettings.size_1_price, url: printSettings.size_1_url },
-    { label: printSettings.size_2_label, price: printSettings.size_2_price, url: printSettings.size_2_url },
-  ].filter(s => s.label) : [];
+  function getImg(a) {
+    const raw = a.image || (Array.isArray(a.gallery_images) && a.gallery_images[0]) || '';
+    return typeof raw === 'object' ? (raw.image || '') : raw;
+  }
 
-  // Populate artwork dropdown
-  artworkSel.innerHTML = works.map((a, i) =>
-    `<option value="${i}">${esc(a.title)}</option>`
-  ).join('');
+  // Wire up the two size buy buttons
+  [
+    { labelId: 'print-size-1-label', priceId: 'print-size-1-price', btnId: 'print-buy-1', lblSpanId: 'print-buy-1-label',
+      label: printSettings?.size_1_label, price: printSettings?.size_1_price, url: printSettings?.size_1_url },
+    { labelId: 'print-size-2-label', priceId: 'print-size-2-price', btnId: 'print-buy-2', lblSpanId: 'print-buy-2-label',
+      label: printSettings?.size_2_label, price: printSettings?.size_2_price, url: printSettings?.size_2_url },
+  ].forEach(s => {
+    const labelEl  = document.getElementById(s.labelId);
+    const priceEl  = document.getElementById(s.priceId);
+    const btn      = document.getElementById(s.btnId);
+    const lblSpan  = document.getElementById(s.lblSpanId);
+    if (labelEl && s.label) labelEl.textContent = s.label;
+    if (priceEl && s.price) priceEl.textContent = fmt(s.price);
+    if (lblSpan && s.label) lblSpan.textContent = s.label;
+    if (btn) {
+      const url = s.url ? safeUrl(s.url) : '';
+      btn.href = url || '#';
+      btn.style.opacity      = url ? '1' : '.45';
+      btn.style.pointerEvents = url ? '' : 'none';
+    }
+  });
 
-  // Populate size dropdown
-  sizeSel.innerHTML = sizes.map((s, i) =>
-    `<option value="${i}">${esc(s.label)}${s.price ? ' — ' + fmt(s.price) : ''}</option>`
-  ).join('');
-
-  // Build thumbnails
+  // Build thumbnail carousel
   if (thumbsEl) {
     thumbsEl.innerHTML = works.map((a, i) => {
-      const img = a.image || (Array.isArray(a.gallery_images) && a.gallery_images[0]) || '';
+      const img = getImg(a);
       return `<div class="print-thumb${i === 0 ? ' active' : ''}" data-idx="${i}" tabindex="0" role="button" aria-label="${esc(a.title)}">
         ${img ? `<img src="${esc(img)}" alt="${esc(a.title)}" loading="lazy" />` : ''}
       </div>`;
@@ -838,43 +849,22 @@ function initPrints(artworks, printSettings) {
     );
   }
 
-  function getImg(a) {
-    const raw = a.image || (Array.isArray(a.gallery_images) && a.gallery_images[0]) || '';
-    return typeof raw === 'object' ? raw.image || '' : raw;
-  }
-
   function selectArtwork(idx) {
     const a = works[idx];
     if (!a) return;
     mainImg.src = getImg(a);
     mainImg.alt = a.title;
-    artworkSel.value = idx;
     thumbsEl?.querySelectorAll('.print-thumb').forEach((t, i) =>
       t.classList.toggle('active', i === idx)
     );
     thumbsEl?.children[idx]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   }
 
-  function updateCheckout() {
-    const size = sizes[parseInt(sizeSel.value)];
-    if (priceEl) priceEl.textContent = size?.price ? fmt(size.price) : '';
-    if (buyBtn) {
-      const url = size?.url ? safeUrl(size.url) : '';
-      buyBtn.href            = url || '#';
-      buyBtn.style.opacity   = url ? '1' : '.45';
-      buyBtn.style.cursor    = url ? '' : 'default';
-    }
-  }
-
-  artworkSel.addEventListener('change', () => selectArtwork(parseInt(artworkSel.value)));
-  sizeSel.addEventListener('change', updateCheckout);
-
   document.getElementById('print-main-image')?.addEventListener('click', () => {
     if (mainImg.src) openLightbox([mainImg.src], 0);
   });
 
   if (works.length) selectArtwork(0);
-  updateCheckout();
 }
 
 // ── PRINTS & GIFTS ──

@@ -608,12 +608,31 @@ p { max-width: 68ch; }
   transition: border-color .15s;
 }
 .print-select:focus { outline: none; border-color: var(--accent); }
-.print-price {
+.print-price { display: none; } /* legacy — unused */
+.print-controls-note {
+  font-size: .78rem;
+  color: var(--muted);
+  margin: 0;
+  padding-bottom: .25rem;
+  border-bottom: 1px solid var(--border);
+}
+.print-size-block {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  padding-top: 1.25rem;
+}
+.print-size-dims {
   font-family: var(--font-serif);
+  font-size: 1.05rem;
   font-style: italic;
+  color: var(--text);
+}
+.print-size-price {
+  font-family: var(--font-serif);
   font-size: 1.5rem;
+  font-style: italic;
   color: var(--accent);
-  min-height: 2rem;
 }
 @media (max-width: 720px) {
   .print-product { grid-template-columns: 1fr; }
