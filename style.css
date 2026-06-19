@@ -537,9 +537,11 @@ p { max-width: 68ch; }
 /* ── PRINT PRODUCT ── */
 .print-product {
   display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 3rem;
+  grid-template-columns: 1fr 260px;
+  gap: 2rem;
   align-items: start;
+  max-width: 720px;
+  margin: 0 auto;
 }
 .print-main-image {
   background: var(--bg-2);
