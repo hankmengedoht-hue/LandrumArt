@@ -536,11 +536,7 @@ p { max-width: 68ch; }
 
 /* ── PRINT PRODUCT ── */
 .print-product {
-  display: grid;
-  grid-template-columns: 1fr 260px;
-  gap: 2rem;
-  align-items: start;
-  max-width: 720px;
+  max-width: 420px;
   margin: 0 auto;
 }
 .print-main-image {
@@ -578,11 +574,10 @@ p { max-width: 68ch; }
 .print-thumb.active { opacity: 1; border-color: var(--accent); }
 .print-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .print-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
-  position: sticky;
-  top: calc(var(--nav-h) + 1.5rem);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem 1.25rem;
+  margin-top: 1.25rem;
 }
 .print-control-label {
   display: block;
@@ -612,6 +607,7 @@ p { max-width: 68ch; }
 .print-select:focus { outline: none; border-color: var(--accent); }
 .print-price { display: none; } /* legacy — unused */
 .print-controls-note {
+  grid-column: 1 / -1;
   font-size: .78rem;
   color: var(--muted);
   margin: 0;
@@ -621,8 +617,8 @@ p { max-width: 68ch; }
 .print-size-block {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
-  padding-top: 1.25rem;
+  gap: .4rem;
+  padding-top: .5rem;
 }
 .print-size-dims {
   font-family: var(--font-serif);
@@ -637,8 +633,7 @@ p { max-width: 68ch; }
   color: var(--accent);
 }
 @media (max-width: 720px) {
-  .print-product { grid-template-columns: 1fr; }
-  .print-controls { position: static; }
+  .print-controls { grid-template-columns: 1fr; }
 }
 
 /* ── SHOP / PRINTS & GIFTS ── */
