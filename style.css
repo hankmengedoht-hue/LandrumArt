@@ -582,6 +582,16 @@ p { max-width: 68ch; }
   object-fit: contain;
   display: block;
 }
+.print-title {
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--text);
+  margin: .55rem 0 .5rem;
+  min-height: 1.5em;
+  letter-spacing: .01em;
+}
 .print-thumbs {
   display: flex;
   gap: .4rem;

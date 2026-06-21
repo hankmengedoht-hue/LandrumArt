@@ -861,12 +861,15 @@ function initPrints(artworks, printSettings) {
     );
   }
 
+  const titleEl = document.getElementById('print-title');
+
   function selectArtwork(idx) {
     currentIdx = idx;
     const a = works[idx];
     if (!a) return;
     mainImg.src = getImg(a);
     mainImg.alt = a.title;
+    if (titleEl) titleEl.textContent = a.title;
     thumbsEl?.querySelectorAll('.print-thumb').forEach((t, i) =>
       t.classList.toggle('active', i === idx)
     );
