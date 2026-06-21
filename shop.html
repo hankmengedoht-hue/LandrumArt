@@ -57,8 +57,12 @@
       </div>
       <div class="print-product">
         <div class="print-gallery">
-          <div class="print-main-image" id="print-main-image">
-            <img id="print-main-img" src="" alt="" />
+          <div class="print-viewer">
+            <button class="print-arrow print-prev" id="print-prev" aria-label="Previous artwork">&#8249;</button>
+            <div class="print-main-image" id="print-main-image">
+              <img id="print-main-img" src="" alt="" />
+            </div>
+            <button class="print-arrow print-next" id="print-next" aria-label="Next artwork">&#8250;</button>
           </div>
           <div class="print-thumbs" id="print-thumbs"></div>
         </div>
@@ -155,9 +159,11 @@
 </div>
 
 <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
-  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+  </div>
   <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)" aria-label="Previous">&#8249;</button>
-  <img class="lightbox-img" id="lightbox-img" src="" alt="" />
   <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)" aria-label="Next">&#8250;</button>
 </div>
 

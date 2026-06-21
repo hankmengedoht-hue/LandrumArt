@@ -836,6 +836,18 @@ function initPrints(artworks, printSettings) {
     }
   });
 
+  let currentIdx = 0;
+  const prevBtn  = document.getElementById('print-prev');
+  const nextBtn  = document.getElementById('print-next');
+
+  function updateArrows() {
+    if (prevBtn) prevBtn.disabled = currentIdx === 0;
+    if (nextBtn) nextBtn.disabled = currentIdx === works.length - 1;
+  }
+
+  prevBtn?.addEventListener('click', () => selectArtwork(Math.max(0, currentIdx - 1)));
+  nextBtn?.addEventListener('click', () => selectArtwork(Math.min(works.length - 1, currentIdx + 1)));
+
   // Build thumbnail carousel
   if (thumbsEl) {
     thumbsEl.innerHTML = works.map((a, i) => {
@@ -850,6 +862,7 @@ function initPrints(artworks, printSettings) {
   }
 
   function selectArtwork(idx) {
+    currentIdx = idx;
     const a = works[idx];
     if (!a) return;
     mainImg.src = getImg(a);
@@ -858,6 +871,7 @@ function initPrints(artworks, printSettings) {
       t.classList.toggle('active', i === idx)
     );
     thumbsEl?.children[idx]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    updateArrows();
   }
 
   document.getElementById('print-main-image')?.addEventListener('click', () => {
