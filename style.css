@@ -788,6 +788,23 @@ p { max-width: 68ch; }
   cursor: pointer;
 }
 .btn-shop-buy:hover { background: var(--accent); color: #000; }
+.shop-card-buy-direct {
+  display: inline-flex;
+  align-items: center;
+  background: var(--accent);
+  color: #0a0a0a;
+  font-family: var(--font-sans);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: .5rem 1rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity .15s;
+}
+.shop-card-buy-direct:hover { opacity: .85; }
 
 /* ── GALLERY FILTERS ── */
 .gallery-toolbar {

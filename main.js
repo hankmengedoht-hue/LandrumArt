@@ -912,7 +912,9 @@ function shopItemCard(item) {
         <div class="shop-card-name">${esc(item.name)}</div>
         ${item.description ? `<p class="shop-card-desc">${esc(item.description)}</p>` : ''}
         <div class="shop-card-footer">
-          ${item.price ? `<div class="shop-card-price">${fmt(item.price)}</div>` : '<div></div>'}
+          ${avail && item.price && item.shopify_url
+            ? `<a href="${esc(safeUrl(item.shopify_url))}" target="_blank" rel="noopener noreferrer" class="shop-card-buy-direct" onclick="event.stopPropagation()">Buy — ${fmt(item.price)}</a>`
+            : item.price ? `<div class="shop-card-price">${fmt(item.price)}</div>` : '<div></div>'}
           ${avail
             ? `<span class="btn-shop-buy">View Details</span>`
             : `<span class="shop-card-sold-badge">Sold Out</span>`}
