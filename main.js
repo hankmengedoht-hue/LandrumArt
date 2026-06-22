@@ -814,27 +814,24 @@ function initPrints(artworks, printSettings) {
     return typeof raw === 'object' ? (raw.image || '') : raw;
   }
 
-  // Wire up the two size buy buttons
-  [
-    { labelId: 'print-size-1-label', priceId: 'print-size-1-price', btnId: 'print-buy-1', lblSpanId: 'print-buy-1-label',
-      label: printSettings?.size_1_label, price: printSettings?.size_1_price, url: printSettings?.size_1_url },
-    { labelId: 'print-size-2-label', priceId: 'print-size-2-price', btnId: 'print-buy-2', lblSpanId: 'print-buy-2-label',
-      label: printSettings?.size_2_label, price: printSettings?.size_2_price, url: printSettings?.size_2_url },
-  ].forEach(s => {
-    const labelEl  = document.getElementById(s.labelId);
-    const priceEl  = document.getElementById(s.priceId);
-    const btn      = document.getElementById(s.btnId);
-    const lblSpan  = document.getElementById(s.lblSpanId);
+  // Set labels and prices on buy buttons (URLs updated dynamically per artwork)
+  const _sizes = [
+    { labelId: 'print-size-1-label', priceId: 'print-size-1-price', lblSpanId: 'print-buy-1-label',
+      label: printSettings?.size_1_label, price: printSettings?.size_1_price },
+    { labelId: 'print-size-2-label', priceId: 'print-size-2-price', lblSpanId: 'print-buy-2-label',
+      label: printSettings?.size_2_label, price: printSettings?.size_2_price },
+  ];
+  _sizes.forEach(s => {
+    const labelEl = document.getElementById(s.labelId);
+    const priceEl = document.getElementById(s.priceId);
+    const lblSpan = document.getElementById(s.lblSpanId);
     if (labelEl && s.label) labelEl.textContent = s.label;
     if (priceEl && s.price) priceEl.textContent = fmt(s.price);
     if (lblSpan && s.label) lblSpan.textContent = s.label;
-    if (btn) {
-      const url = s.url ? safeUrl(s.url) : '';
-      btn.href = url || '#';
-      btn.style.opacity      = url ? '1' : '.45';
-      btn.style.pointerEvents = url ? '' : 'none';
-    }
   });
+
+  const _variantMap = printSettings?.variant_map || {};
+  const _shopDomain = printSettings?.shopify_domain || '';
 
   let currentIdx = 0;
   const prevBtn  = document.getElementById('print-prev');
@@ -870,6 +867,20 @@ function initPrints(artworks, printSettings) {
     mainImg.src = getImg(a);
     mainImg.alt = a.title;
     if (titleEl) titleEl.textContent = a.title;
+
+    // Update buy button URLs to the specific artwork variant
+    const v = _variantMap[a._slug];
+    const btn1 = document.getElementById('print-buy-1');
+    const btn2 = document.getElementById('print-buy-2');
+    if (v && _shopDomain) {
+      const base = `https://${_shopDomain}/cart/`;
+      if (btn1) { btn1.href = base + v.s + ':1'; btn1.style.opacity = '1'; btn1.style.pointerEvents = ''; }
+      if (btn2) { btn2.href = base + v.l + ':1'; btn2.style.opacity = '1'; btn2.style.pointerEvents = ''; }
+    } else {
+      if (btn1) { btn1.href = '#'; btn1.style.opacity = '.45'; btn1.style.pointerEvents = 'none'; }
+      if (btn2) { btn2.href = '#'; btn2.style.opacity = '.45'; btn2.style.pointerEvents = 'none'; }
+    }
+
     thumbsEl?.querySelectorAll('.print-thumb').forEach((t, i) =>
       t.classList.toggle('active', i === idx)
     );
