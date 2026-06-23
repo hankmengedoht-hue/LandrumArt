@@ -165,10 +165,11 @@ function artworkCard(a, collectionName) {
 
 // ── HOMEPAGE ──
 async function initHomepage() {
-  const [home, artworks, shopItems] = await Promise.all([
+  const [home, artworks, shopItems, printSettings] = await Promise.all([
     fetchJSON('/_data/pages/home.json'),
     loadAll('artworks'),
-    loadAll('shop-items')
+    loadAll('shop-items'),
+    fetchJSON('/_data/pages/shop-prints.json')
   ]);
 
   const published = artworks.filter(a => a.published !== false);
@@ -211,6 +212,9 @@ async function initHomepage() {
       previewSection?.style.setProperty('display', 'none');
     }
   }
+
+  // Prints carousel
+  initPrints(artworks, printSettings);
 
   applySettings();
 }
