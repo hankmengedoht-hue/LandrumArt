@@ -690,14 +690,6 @@ p { max-width: 68ch; }
   gap: 3rem;
   align-items: start;
 }
-.shop-preview-col-label {
-  font-size: .67rem;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 1.25rem;
-}
 @media (max-width: 860px) {
   .shop-preview-layout { grid-template-columns: 1fr; }
 }
