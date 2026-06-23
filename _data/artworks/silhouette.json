@@ -10,5 +10,12 @@
   "year": null,
   "collection": "",
   "description": "",
-  "purchase_options": []
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "available": true,
+      "shopify_url": "https://landrumtables.com/cart/45195029315653:1"
+    }
+  ]
 }
