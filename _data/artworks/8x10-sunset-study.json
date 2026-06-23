@@ -1,0 +1,22 @@
+{
+  "title": "8x10 Sunset Study",
+  "published": true,
+  "featured": false,
+  "order": 117,
+  "image": "/images/uploads/8x10-sunset-study.jpg",
+  "gallery_images": [],
+  "dimensions": "8 x 10",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 0,
+      "available": true,
+      "shopify_url": ""
+    }
+  ],
+  "medium": "Oil on Canvas"
+}

@@ -1,0 +1,22 @@
+{
+  "title": "8x10 Study 2",
+  "published": true,
+  "featured": false,
+  "order": 118,
+  "image": "/images/uploads/8x10-study-2.jpg",
+  "gallery_images": [],
+  "dimensions": "8 x 10",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 0,
+      "available": true,
+      "shopify_url": ""
+    }
+  ],
+  "medium": "Oil on Canvas"
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Untitled 1",
+  "published": true,
+  "featured": false,
+  "order": 119,
+  "image": "/images/uploads/untitled-1.jpg",
+  "gallery_images": [],
+  "dimensions": "",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 0,
+      "available": true,
+      "shopify_url": ""
+    }
+  ],
+  "medium": "Oil on Canvas"
+}
