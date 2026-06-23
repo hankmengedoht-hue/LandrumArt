@@ -7,7 +7,6 @@
   "gallery_images": [],
   "dimensions": "17 x 25",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
@@ -15,8 +14,9 @@
       "description": "",
       "price": 950,
       "available": true,
-      "shopify_url": ""
+      "shopify_url": "https://landrumtables.com/cart/45195257970757:1"
     }
   ],
+  "collection": "",
   "medium": "Oil on Canvas"
 }
