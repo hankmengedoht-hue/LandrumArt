@@ -1,0 +1,22 @@
+{
+  "title": "Dorries",
+  "published": true,
+  "featured": false,
+  "order": 103,
+  "image": "/images/uploads/Dorries 20x30 $1450.jpg",
+  "gallery_images": [],
+  "dimensions": "20 x 30",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 1450,
+      "available": true,
+      "shopify_url": ""
+    }
+  ],
+  "medium": "Oil on Canvas"
+}

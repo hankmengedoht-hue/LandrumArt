@@ -1,0 +1,22 @@
+{
+  "title": "Midnight Blush",
+  "published": true,
+  "featured": false,
+  "order": 110,
+  "image": "/images/uploads/Midnight Blush.jpg",
+  "gallery_images": [],
+  "dimensions": "",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": null,
+      "available": false,
+      "shopify_url": ""
+    }
+  ],
+  "medium": "Oil on Canvas"
+}

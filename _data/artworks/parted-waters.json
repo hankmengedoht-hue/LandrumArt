@@ -1,0 +1,22 @@
+{
+  "title": "Parted Waters",
+  "published": true,
+  "featured": false,
+  "order": 107,
+  "image": "/images/uploads/Parted Waters 10x20 $495.jpg",
+  "gallery_images": [],
+  "dimensions": "10 x 20",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 495,
+      "available": true,
+      "shopify_url": ""
+    }
+  ],
+  "medium": "Oil on Canvas"
+}

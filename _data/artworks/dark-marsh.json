@@ -1,0 +1,22 @@
+{
+  "title": "Dark Marsh",
+  "published": true,
+  "featured": false,
+  "order": 100,
+  "image": "/images/uploads/Dark Marsh 20x30 $695.jpg",
+  "gallery_images": [],
+  "dimensions": "20 x 30",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 695,
+      "available": true,
+      "shopify_url": ""
+    }
+  ],
+  "medium": "Oil on Canvas"
+}

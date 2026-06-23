@@ -1,0 +1,22 @@
+{
+  "title": "Study 8x10",
+  "published": true,
+  "featured": false,
+  "order": 105,
+  "image": "/images/uploads/Study 8x10 $195.jpg",
+  "gallery_images": [],
+  "dimensions": "8 x 10",
+  "year": null,
+  "collection": "",
+  "description": "",
+  "purchase_options": [
+    {
+      "type": "Original",
+      "description": "",
+      "price": 195,
+      "available": true,
+      "shopify_url": ""
+    }
+  ],
+  "medium": "Oil on Canvas"
+}
