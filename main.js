@@ -155,7 +155,7 @@ function artworkCard(a, collectionName) {
       </div>
       <div class="card-info">
         <div class="card-title">${esc(a.title)}</div>
-        <div class="card-meta">${[a.medium, a.year].filter(Boolean).map(esc).join(' · ')}</div>
+        <div class="card-meta">${[a.year].filter(Boolean).map(esc).join(' · ')}</div>
         ${a.dimensions ? `<div class="card-dims">${esc(a.dimensions)}</div>` : ''}
         ${(mp !== null || sold) ? `<div class="card-price">${sold ? 'Sold' : fmt(mp)}</div>` : ''}
       </div>
