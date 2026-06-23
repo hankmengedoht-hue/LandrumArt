@@ -13,7 +13,7 @@
     {
       "type": "Original",
       "description": "",
-      "price": null,
+      "price": 0,
       "available": false,
       "shopify_url": ""
     }
