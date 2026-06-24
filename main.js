@@ -922,7 +922,7 @@ function homeShopItemPreview(item) {
           <div style="height:0.5rem" aria-hidden="true"></div>
           <div class="print-size-price">${fmt(item.price)}</div>
           ${avail && item.shopify_url
-            ? `<a href="${esc(safeUrl(item.shopify_url))}" class="btn btn-accent btn-lg" style="align-self:flex-start" target="_blank" rel="noopener noreferrer">Buy — ${fmt(item.price)}</a>`
+            ? `<a href="${esc(safeUrl(item.shopify_url))}" class="btn btn-accent btn-lg" style="width:calc(50% - 0.625rem);margin:0 auto;text-align:center" target="_blank" rel="noopener noreferrer">Buy — ${fmt(item.price)}</a>`
             : ''}
         </div>
       </div>
