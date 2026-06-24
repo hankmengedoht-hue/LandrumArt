@@ -905,10 +905,14 @@ function homeShopItemPreview(item) {
   return `
     <div class="print-product" style="max-width:none;margin:0">
       <div class="print-gallery">
-        <div class="print-main-image" style="cursor:default">
-          ${item.image
-            ? `<img src="${esc(item.image)}" alt="${esc(item.name)}" loading="lazy" />`
-            : ''}
+        <div class="print-viewer">
+          <div style="flex-shrink:0;width:36px"></div>
+          <div class="print-main-image" style="cursor:default">
+            ${item.image
+              ? `<img src="${esc(item.image)}" alt="${esc(item.name)}" loading="lazy" />`
+              : ''}
+          </div>
+          <div style="flex-shrink:0;width:36px"></div>
         </div>
         <div class="print-title">${esc(item.name)}</div>
       </div>
