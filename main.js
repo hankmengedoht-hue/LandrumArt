@@ -919,7 +919,6 @@ function homeShopItemPreview(item) {
       <div class="print-controls" style="grid-template-columns:1fr">
         ${item.description ? `<p class="print-controls-note" style="grid-column:1/-1">${esc(item.description)}</p>` : ''}
         <div class="print-size-block">
-          <div style="height:0.5rem" aria-hidden="true"></div>
           <div class="print-size-price">${fmt(item.price)}</div>
           ${avail && item.shopify_url
             ? `<a href="${esc(safeUrl(item.shopify_url))}" class="btn btn-accent btn-lg" target="_blank" rel="noopener noreferrer">Buy — ${fmt(item.price)}</a>`
