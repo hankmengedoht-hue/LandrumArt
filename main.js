@@ -207,7 +207,7 @@ async function initHomepage() {
       .sort((a, b) => (a.order || 99) - (b.order || 99))
       .slice(0, 4);
     if (shopPub.length) {
-      previewGrid.innerHTML = shopPub.map(shopItemCard).join('');
+      previewGrid.innerHTML = shopPub.map(homeShopItemPreview).join('');
     } else {
       previewSection?.style.setProperty('display', 'none');
     }
@@ -897,6 +897,31 @@ function initPrints(artworks, printSettings) {
   });
 
   if (works.length) selectArtwork(0);
+}
+
+// ── HOME NOTECARD PREVIEW (print-style layout, no card border) ──
+function homeShopItemPreview(item) {
+  const avail = item.available !== false;
+  return `
+    <div class="print-product" style="max-width:none;margin:0">
+      <div class="print-gallery">
+        <div class="print-main-image" style="cursor:default">
+          ${item.image
+            ? `<img src="${esc(item.image)}" alt="${esc(item.name)}" loading="lazy" />`
+            : ''}
+        </div>
+        <div class="print-title">${esc(item.name)}</div>
+      </div>
+      <div class="print-controls" style="grid-template-columns:1fr">
+        ${item.description ? `<p class="print-controls-note" style="grid-column:1/-1">${esc(item.description)}</p>` : ''}
+        <div class="print-size-block">
+          <div class="print-size-price">${fmt(item.price)}</div>
+          ${avail && item.shopify_url
+            ? `<a href="${esc(safeUrl(item.shopify_url))}" class="btn btn-accent btn-lg" target="_blank" rel="noopener noreferrer">Buy — ${fmt(item.price)}</a>`
+            : ''}
+        </div>
+      </div>
+    </div>`;
 }
 
 // ── PRINTS & GIFTS ──
