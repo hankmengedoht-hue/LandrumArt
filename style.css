@@ -85,6 +85,7 @@ p { max-width: 68ch; }
 .section-sm      { padding-block: clamp(2.5rem, 4vw, 4rem); }
 .section-header  { text-align: center; margin-bottom: clamp(2.5rem, 4vw, 4rem); }
 .section-header h2 { margin-bottom: .75rem; }
+.section-header p { margin-left: auto; margin-right: auto; }
 
 .section-eyebrow {
   display: block;
