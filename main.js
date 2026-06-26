@@ -3,6 +3,8 @@
    Loads content from _data JSON and renders pages.
    ===================================================== */
 
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
 const SITE_NAME = 'Capers Landrum Cauthen';
 
 // ── STICKY HEADER ──
@@ -888,7 +890,10 @@ function initPrints(artworks, printSettings) {
     thumbsEl?.querySelectorAll('.print-thumb').forEach((t, i) =>
       t.classList.toggle('active', i === idx)
     );
-    thumbsEl?.children[idx]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    if (thumbsEl && thumbsEl.children[idx]) {
+      const thumb = thumbsEl.children[idx];
+      thumbsEl.scrollTo({ left: thumb.offsetLeft - thumbsEl.clientWidth / 2 + thumb.clientWidth / 2, behavior: 'smooth' });
+    }
     updateArrows();
   }
 
