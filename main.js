@@ -692,9 +692,6 @@ function _buildArtworkInfo(data) {
 
   h += `<div>
     <h2 class="dp-title">${esc(data.title || '')}</h2>`;
-  if (mp !== null) {
-    h += `<div class="dp-price-summary">${sold ? 'Sold' : fmt(mp)}</div>`;
-  }
   h += `</div>`;
 
   const specs = [
