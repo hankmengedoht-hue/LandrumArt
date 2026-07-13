@@ -105,6 +105,7 @@ function isAllSold(purchaseOptions) {
 // ── PANEL DATA STORES ──
 const _panelData     = new Map(); // slug → artwork + _colName
 const _shopPanelData = new Map(); // slug → shop item
+let _printSettings   = null;
 
 // ── ACTIVE NAV LINK ──
 function setActiveNav() {
@@ -720,7 +721,11 @@ function _buildArtworkInfo(data) {
       h += `<div class="dp-option">
         <div class="dp-option-header">
           <div class="dp-option-type">${esc(o.type || '')}</div>
-          ${o.price ? `<div class="dp-option-price">${fmt(o.price)}</div>` : ''}
+          ${o.price ? `<div class="dp-option-price">${
+            o.type === 'Print' && _printSettings?.size_1_price && _printSettings?.size_2_price
+              ? `${fmt(_printSettings.size_1_price)}/${fmt(_printSettings.size_2_price)}`
+              : fmt(o.price)
+          }</div>` : ''}
         </div>
         ${o.description ? `<p class="dp-option-desc">${esc(o.description)}</p>` : ''}
         ${avail ? `<span class="dp-avail-badge">Available</span>` : `<span class="dp-sold-badge">Sold</span>`}
@@ -813,6 +818,7 @@ async function initShop() {
 }
 
 function initPrints(artworks, printSettings) {
+  _printSettings = printSettings || null;
   const mainImg  = document.getElementById('print-main-img');
   const thumbsEl = document.getElementById('print-thumbs');
   if (!mainImg) return;
