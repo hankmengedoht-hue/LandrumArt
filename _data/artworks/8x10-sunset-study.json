@@ -1,5 +1,5 @@
 {
-  "title": "8x10 Sunset Study",
+  "title": "Marsh Study II",
   "published": true,
   "featured": false,
   "order": 117,
@@ -7,16 +7,16 @@
   "gallery_images": [],
   "dimensions": "8 x 10",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
-      "price": 0,
+      "price": 195,
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45197533413445:1"
     }
   ],
+  "collection": "",
   "medium": "Oil on Canvas"
 }
