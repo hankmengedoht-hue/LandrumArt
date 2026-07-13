@@ -5,18 +5,18 @@
   "order": 21,
   "image": "/images/uploads/marsh-madness.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
   "dimensions": "10 x 8",
-  "year": null,
-  "collection": "",
+  "year": 2026,
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
       "price": 225,
-      "available": true,
+      "available": false,
       "shopify_url": "https://landrumtables.com/cart/45195027152965:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
