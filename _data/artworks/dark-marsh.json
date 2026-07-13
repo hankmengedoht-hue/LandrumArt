@@ -1,5 +1,5 @@
 {
-  "title": "Dark Marsh",
+  "title": "Francis Marion",
   "published": true,
   "featured": false,
   "order": 100,
@@ -7,7 +7,6 @@
   "gallery_images": [],
   "dimensions": "20 x 30",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
@@ -18,5 +17,6 @@
       "shopify_url": "https://landrumtables.com/cart/45195257544773:1"
     }
   ],
+  "collection": "",
   "medium": "Oil on Canvas"
 }
