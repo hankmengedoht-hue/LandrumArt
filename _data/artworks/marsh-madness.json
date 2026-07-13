@@ -1,7 +1,7 @@
 {
   "title": "Marsh Madness",
   "published": true,
-  "featured": true,
+  "featured": false,
   "order": 21,
   "image": "/images/uploads/marsh-madness.jpg",
   "gallery_images": [],
