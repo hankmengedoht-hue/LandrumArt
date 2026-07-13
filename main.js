@@ -89,6 +89,14 @@ function minPrice(purchaseOptions) {
   return prices.length ? Math.min(...prices) : null;
 }
 
+function originalPrice(purchaseOptions) {
+  const orig = (purchaseOptions || []).find(o => o.type === 'Original');
+  if (!orig) return minPrice(purchaseOptions);
+  if (orig.available === false) return null;
+  const p = parseFloat(String(orig.price || 0).replace(/[^0-9.]/g, ''));
+  return isNaN(p) ? null : p;
+}
+
 function isAllSold(purchaseOptions) {
   const opts = purchaseOptions || [];
   return opts.length > 0 && opts.every(o => o.available === false);
@@ -136,8 +144,9 @@ async function applySettings() {
 // ── ARTWORK CARD ──
 function artworkCard(a, collectionName) {
   const img = a.image || (Array.isArray(a.gallery_images) && a.gallery_images[0]) || '';
-  const sold = isAllSold(a.purchase_options);
-  const mp   = minPrice(a.purchase_options);
+  const _orig = (a.purchase_options || []).find(o => o.type === 'Original');
+  const sold  = _orig ? _orig.available === false : isAllSold(a.purchase_options);
+  const mp    = originalPrice(a.purchase_options);
 
   _panelData.set(a._slug, { ...a, _colName: collectionName || '' });
 
