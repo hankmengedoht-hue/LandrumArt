@@ -5,18 +5,18 @@
   "order": 29,
   "image": "/images/uploads/first-light.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
   "dimensions": "",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
-      "available": true,
-      "shopify_url": "https://landrumtables.com/cart/45195025547333:1",
-      "price": 0
+      "price": 1850,
+      "available": false,
+      "shopify_url": "https://landrumtables.com/cart/45195025547333:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
