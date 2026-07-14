@@ -327,6 +327,15 @@ p { max-width: 68ch; }
   border: 1px solid rgba(240,235,227,.28);
 }
 .btn-outline:hover { border-color: var(--text); }
+.hero-actions .btn-outline {
+  background: rgba(255,255,255,.12);
+  border-color: rgba(255,255,255,.75);
+  color: #fff;
+}
+.hero-actions .btn-outline:hover {
+  background: rgba(255,255,255,.22);
+  border-color: #fff;
+}
 .btn-ghost {
   background: transparent;
   color: var(--muted);
