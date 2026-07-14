@@ -712,13 +712,27 @@ function _buildArtworkInfo(data) {
     h += `<p class="dp-desc">${esc(data.description)}</p>`;
   }
 
-  if (opts.length) {
+  const _variantBase = _printSettings?.shopify_domain ? `https://${_printSettings.shopify_domain}/cart/` : '';
+  const _hasPrintOpt = opts.some(o => o.type === 'Print');
+  const _printVariants = _printSettings?.variant_map?.[data._slug];
+
+  function _renderPrintButtons(variants) {
+    if (!variants || !_variantBase) return '';
+    return `<a href="${_variantBase}${variants.s}:1" target="_blank" rel="noopener noreferrer" class="dp-shop-buy">Purchase ${esc(_printSettings.size_1_label || '11 × 17')} — ${fmt(_printSettings.size_1_price)}</a>
+            <a href="${_variantBase}${variants.l}:1" target="_blank" rel="noopener noreferrer" class="dp-shop-buy">Purchase ${esc(_printSettings.size_2_label || '16 × 20')} — ${fmt(_printSettings.size_2_price)}</a>`;
+  }
+
+  const allOpts = [...opts];
+  if (!_hasPrintOpt && _printVariants) {
+    allOpts.push({ type: 'Print', description: 'Comes with backing and sleeve. 11x17 or 16x20', price: _printSettings.size_2_price, available: true, shopify_url: '' });
+  }
+
+  if (allOpts.length) {
     h += `<div class="dp-options-label">Available As</div><div>`;
-    opts.forEach(o => {
+    allOpts.forEach(o => {
       const avail    = o.available !== false;
       const isPrint  = o.type === 'Print';
-      const variants = isPrint ? _printSettings?.variant_map?.[data._slug] : null;
-      const base     = _printSettings?.shopify_domain ? `https://${_printSettings.shopify_domain}/cart/` : '';
+      const variants = isPrint ? _printVariants : null;
       h += `<div class="dp-option">
         <div class="dp-option-header">
           <div class="dp-option-type">${esc(o.type || '')}</div>
@@ -730,9 +744,8 @@ function _buildArtworkInfo(data) {
         </div>
         ${o.description ? `<p class="dp-option-desc">${esc(o.description)}</p>` : ''}
         ${avail ? `<span class="dp-avail-badge">Available</span>` : `<span class="dp-sold-badge">Sold</span>`}
-        ${avail && isPrint && variants && base
-          ? `<a href="${base}${variants.s}:1" target="_blank" rel="noopener noreferrer" class="dp-shop-buy">Purchase ${esc(_printSettings.size_1_label || '11 × 17')} — ${fmt(_printSettings.size_1_price)}</a>
-             <a href="${base}${variants.l}:1" target="_blank" rel="noopener noreferrer" class="dp-shop-buy">Purchase ${esc(_printSettings.size_2_label || '16 × 20')} — ${fmt(_printSettings.size_2_price)}</a>`
+        ${avail && isPrint && variants
+          ? _renderPrintButtons(variants)
           : avail && o.shopify_url
             ? `<a href="${esc(safeUrl(o.shopify_url))}" target="_blank" rel="noopener noreferrer" class="dp-shop-buy">Purchase${o.price ? ' — ' + fmt(o.price) : ''}</a>`
             : ''}
