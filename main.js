@@ -233,7 +233,8 @@ async function initHomepage() {
 
 // ── GALLERY PAGE ──
 async function initGallery() {
-  const [artworks, pageData] = await Promise.all([loadAll('artworks'), fetchJSON('/_data/pages/gallery.json')]);
+  const [artworks, pageData, printSettings] = await Promise.all([loadAll('artworks'), fetchJSON('/_data/pages/gallery.json'), fetchJSON('/_data/pages/shop-prints.json')]);
+  _printSettings = printSettings || null;
   const published = artworks.filter(a => a.published !== false);
 
   let searchVal   = '';
@@ -714,21 +715,27 @@ function _buildArtworkInfo(data) {
   if (opts.length) {
     h += `<div class="dp-options-label">Available As</div><div>`;
     opts.forEach(o => {
-      const avail = o.available !== false;
+      const avail    = o.available !== false;
+      const isPrint  = o.type === 'Print';
+      const variants = isPrint ? _printSettings?.variant_map?.[data._slug] : null;
+      const base     = _printSettings?.shopify_domain ? `https://${_printSettings.shopify_domain}/cart/` : '';
       h += `<div class="dp-option">
         <div class="dp-option-header">
           <div class="dp-option-type">${esc(o.type || '')}</div>
           ${o.price ? `<div class="dp-option-price">${
-            o.type === 'Print' && _printSettings?.size_1_price && _printSettings?.size_2_price
+            isPrint && _printSettings?.size_1_price && _printSettings?.size_2_price
               ? `${fmt(_printSettings.size_1_price)}/${fmt(_printSettings.size_2_price)}`
               : fmt(o.price)
           }</div>` : ''}
         </div>
         ${o.description ? `<p class="dp-option-desc">${esc(o.description)}</p>` : ''}
         ${avail ? `<span class="dp-avail-badge">Available</span>` : `<span class="dp-sold-badge">Sold</span>`}
-        ${avail && o.shopify_url
-          ? `<a href="${esc(safeUrl(o.shopify_url))}" target="_blank" rel="noopener noreferrer" class="dp-shop-buy">Purchase${o.price ? ' — ' + fmt(o.price) : ''}</a>`
-          : ''}
+        ${avail && isPrint && variants && base
+          ? `<a href="${base}${variants.s}:1" target="_blank" rel="noopener noreferrer" class="dp-shop-buy">Purchase ${esc(_printSettings.size_1_label || '11 × 17')} — ${fmt(_printSettings.size_1_price)}</a>
+             <a href="${base}${variants.l}:1" target="_blank" rel="noopener noreferrer" class="dp-shop-buy">Purchase ${esc(_printSettings.size_2_label || '16 × 20')} — ${fmt(_printSettings.size_2_price)}</a>`
+          : avail && o.shopify_url
+            ? `<a href="${esc(safeUrl(o.shopify_url))}" target="_blank" rel="noopener noreferrer" class="dp-shop-buy">Purchase${o.price ? ' — ' + fmt(o.price) : ''}</a>`
+            : ''}
       </div>`;
     });
     h += `</div>`;
