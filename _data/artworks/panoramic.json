@@ -1,14 +1,12 @@
 {
   "title": "Panoramic",
   "published": true,
-  "featured": false,
+  "featured": true,
   "order": 18,
   "image": "/images/uploads/panoramic.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
   "dimensions": "36 x 12",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
@@ -18,5 +16,7 @@
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45195027808325:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
