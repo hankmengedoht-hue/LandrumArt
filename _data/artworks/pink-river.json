@@ -1,14 +1,12 @@
 {
   "title": "Pink River",
-  "published": true,
+  "published": false,
   "featured": false,
   "order": 17,
   "image": "/images/uploads/pink-river.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
   "dimensions": "30 x 10",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
@@ -18,5 +16,7 @@
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45195027841093:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
