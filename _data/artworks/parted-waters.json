@@ -1,5 +1,5 @@
 {
-  "title": "Parted Waters",
+  "title": "Dunes Club",
   "published": true,
   "featured": false,
   "order": 107,
@@ -7,7 +7,6 @@
   "gallery_images": [],
   "dimensions": "10 x 20",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
@@ -18,5 +17,6 @@
       "shopify_url": "https://landrumtables.com/cart/45195258331205:1"
     }
   ],
+  "collection": "",
   "medium": "Oil on Canvas"
 }
