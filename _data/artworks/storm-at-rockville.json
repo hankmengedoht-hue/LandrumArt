@@ -1,22 +1,22 @@
 {
   "title": "Storm at Rockville",
   "published": true,
-  "featured": true,
+  "featured": false,
   "order": 9,
   "image": "/images/uploads/storm-at-rockville.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
   "dimensions": "",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
+      "price": 750,
       "available": true,
-      "shopify_url": "https://landrumtables.com/cart/45195029577797:1",
-      "price": 0
+      "shopify_url": "https://landrumtables.com/cart/45195029577797:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
