@@ -1,5 +1,5 @@
 {
-  "title": "Gurton Falls",
+  "title": "Gerton Falls",
   "published": true,
   "featured": false,
   "order": 99,
@@ -7,7 +7,6 @@
   "gallery_images": [],
   "dimensions": "20x16",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
@@ -17,5 +16,6 @@
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45195026464837:1"
     }
-  ]
+  ],
+  "collection": ""
 }
