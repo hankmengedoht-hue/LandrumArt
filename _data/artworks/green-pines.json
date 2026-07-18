@@ -1,14 +1,12 @@
 {
-  "title": "Green Pines",
+  "title": "Brown Water River",
   "published": true,
   "featured": false,
   "order": 26,
   "image": "/images/uploads/green-pines.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
   "dimensions": "24 x 18",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
@@ -18,5 +16,7 @@
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45195026006085:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
