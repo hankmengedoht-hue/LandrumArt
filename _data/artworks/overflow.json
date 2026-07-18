@@ -1,22 +1,22 @@
 {
-  "title": "Overflow",
+  "title": "River Birch",
   "published": true,
   "featured": false,
   "order": 112,
   "image": "/images/uploads/Overflow.jpg",
   "gallery_images": [],
-  "dimensions": "",
+  "dimensions": "10 x 20",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
-      "price": 0,
+      "price": 475,
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45195258298437:1"
     }
   ],
+  "collection": "",
   "medium": "Oil on Canvas"
 }
