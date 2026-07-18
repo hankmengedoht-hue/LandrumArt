@@ -1,7 +1,7 @@
 {
   "title": "Panoramic",
   "published": true,
-  "featured": true,
+  "featured": false,
   "order": 18,
   "image": "/images/uploads/panoramic.jpg",
   "gallery_images": [],
