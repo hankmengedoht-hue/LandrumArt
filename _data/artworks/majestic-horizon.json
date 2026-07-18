@@ -1,22 +1,22 @@
 {
-  "title": "Majestic Horizon",
+  "title": "Block Island Sound",
   "published": true,
   "featured": false,
   "order": 113,
   "image": "/images/uploads/Majestic Horizon.jpg",
   "gallery_images": [],
-  "dimensions": "",
+  "dimensions": "16 x 20",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
-      "price": 0,
+      "price": 950,
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45195258003525:1"
     }
   ],
+  "collection": "",
   "medium": "Oil on Canvas"
 }
