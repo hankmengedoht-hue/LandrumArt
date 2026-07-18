@@ -1,5 +1,5 @@
 {
-  "title": "Royal Rapids",
+  "title": "Wyoming",
   "published": true,
   "featured": false,
   "order": 115,
@@ -7,16 +7,16 @@
   "gallery_images": [],
   "dimensions": "",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
-      "price": 0,
+      "price": 550,
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45195260657733:1"
     }
   ],
+  "collection": "",
   "medium": "Oil on Canvas"
 }
