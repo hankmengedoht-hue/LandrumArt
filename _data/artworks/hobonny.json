@@ -5,18 +5,18 @@
   "order": 24,
   "image": "/images/uploads/hobonny.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
-  "dimensions": "",
+  "dimensions": "30 x 14",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
-      "available": true,
-      "shopify_url": "https://landrumtables.com/cart/45195026661445:1",
-      "price": 0
+      "price": 0,
+      "available": false,
+      "shopify_url": "https://landrumtables.com/cart/45195026661445:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
