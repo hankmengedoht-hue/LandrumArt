@@ -1,14 +1,12 @@
 {
   "title": "Expanse",
-  "published": true,
+  "published": false,
   "featured": false,
   "order": 30,
   "image": "/images/uploads/expanse.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
   "dimensions": "60 x 20",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
@@ -18,5 +16,7 @@
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45195025317957:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
