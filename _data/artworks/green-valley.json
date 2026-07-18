@@ -1,14 +1,12 @@
 {
-  "title": "Green Valley",
+  "title": "Lake Lure",
   "published": true,
   "featured": false,
   "order": 25,
   "image": "/images/uploads/green-valley.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
   "dimensions": "20 x 16",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
@@ -18,5 +16,7 @@
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45195026268229:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
