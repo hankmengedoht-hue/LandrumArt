@@ -1,24 +1,22 @@
 {
   "title": "Magic Hour",
   "published": true,
-  "featured": false,
+  "featured": true,
   "order": 22,
   "image": "/images/uploads/magic-hour.jpg",
-  "gallery_images": [
-    "/images/uploads/magic-hour-2.jpg"
-  ],
-  "medium": "Oil on Canvas",
-  "dimensions": "33 x 22",
+  "gallery_images": [],
+  "dimensions": "11 x 14",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
-      "price": 950,
+      "price": 550,
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45195026923589:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
