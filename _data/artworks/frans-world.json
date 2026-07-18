@@ -1,7 +1,7 @@
 {
   "title": "Fran's World",
   "published": true,
-  "featured": true,
+  "featured": false,
   "order": 28,
   "image": "/images/uploads/frans-world.jpg",
   "gallery_images": [
