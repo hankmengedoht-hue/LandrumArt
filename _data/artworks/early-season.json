@@ -5,18 +5,18 @@
   "order": 31,
   "image": "/images/uploads/early-season.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
-  "dimensions": "",
+  "dimensions": "36 x 24",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
-      "available": true,
-      "shopify_url": "https://landrumtables.com/cart/45195025121349:1",
-      "price": 0
+      "price": 950,
+      "available": false,
+      "shopify_url": "https://landrumtables.com/cart/45195025121349:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
