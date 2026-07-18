@@ -1,22 +1,22 @@
 {
-  "title": "Fairytale Fall",
+  "title": "Falls",
   "published": true,
   "featured": false,
   "order": 109,
   "image": "/images/uploads/Fairytale Fall.jpg",
   "gallery_images": [],
-  "dimensions": "",
+  "dimensions": "16 x 20",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
-      "price": 0,
+      "price": 495,
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45195257872453:1"
     }
   ],
+  "collection": "",
   "medium": "Oil on Canvas"
 }
