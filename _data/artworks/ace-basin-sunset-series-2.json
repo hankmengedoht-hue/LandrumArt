@@ -7,16 +7,16 @@
   "gallery_images": [],
   "dimensions": "10 x 8",
   "year": null,
-  "collection": "ace-basin-collection",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
-      "price": 195,
+      "price": 225,
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45195023712325:1"
     }
   ],
+  "collection": "ace-basin-collection",
   "medium": "Oil on Canvas"
 }
