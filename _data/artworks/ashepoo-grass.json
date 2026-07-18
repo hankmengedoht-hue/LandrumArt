@@ -5,18 +5,18 @@
   "order": 35,
   "image": "/images/uploads/Ashepoo_Grass_20x10_$395.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
   "dimensions": "20 x 10",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
-      "price": 395,
+      "price": 550,
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45195024629829:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
