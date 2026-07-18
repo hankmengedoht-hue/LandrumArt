@@ -1,22 +1,22 @@
 {
   "title": "Locked Up",
   "published": true,
-  "featured": false,
+  "featured": true,
   "order": 23,
   "image": "/images/uploads/locked-up.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
-  "dimensions": "",
+  "dimensions": "16 x 20",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
+      "price": 550,
       "available": true,
-      "shopify_url": "https://landrumtables.com/cart/45195026890821:1",
-      "price": 0
+      "shopify_url": "https://landrumtables.com/cart/45195026890821:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
