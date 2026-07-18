@@ -5,18 +5,18 @@
   "order": 11,
   "image": "/images/uploads/silhouette.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
   "dimensions": "",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
-      "available": true,
-      "shopify_url": "https://landrumtables.com/cart/45195029315653:1",
-      "price": 0
+      "price": 650,
+      "available": false,
+      "shopify_url": "https://landrumtables.com/cart/45195029315653:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
