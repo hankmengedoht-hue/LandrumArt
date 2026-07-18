@@ -1,22 +1,22 @@
 {
-  "title": "Pink Sky",
+  "title": "Black Tail Deer Creek",
   "published": true,
   "featured": false,
   "order": 16,
   "image": "/images/uploads/pink-sky.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
-  "dimensions": "18 x 24",
+  "dimensions": "",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
+      "price": 0,
       "available": true,
-      "shopify_url": "https://landrumtables.com/cart/45195028037701:1",
-      "price": 0
+      "shopify_url": "https://landrumtables.com/cart/45195028037701:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
