@@ -1,7 +1,7 @@
 {
   "title": "Secluded Island",
   "published": true,
-  "featured": false,
+  "featured": true,
   "order": 13,
   "image": "/images/uploads/secluded-island.jpg",
   "gallery_images": [],
