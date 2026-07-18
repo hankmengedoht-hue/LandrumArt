@@ -5,18 +5,18 @@
   "order": 110,
   "image": "/images/uploads/Midnight Blush.jpg",
   "gallery_images": [],
-  "dimensions": "",
+  "dimensions": "20 x 16",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
-      "price": 0,
+      "price": 450,
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45195258036293:1"
     }
   ],
+  "collection": "",
   "medium": "Oil on Canvas"
 }
