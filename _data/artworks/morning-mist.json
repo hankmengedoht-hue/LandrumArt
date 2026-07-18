@@ -1,22 +1,22 @@
 {
   "title": "Morning Mist",
   "published": true,
-  "featured": false,
+  "featured": true,
   "order": 20,
   "image": "/images/uploads/morning-mist.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
-  "dimensions": "",
+  "dimensions": "16 x 20",
   "year": null,
-  "collection": "",
-  "description": "",
+  "description": "Featured in the 2026 Dunes Club art exhibition",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
+      "price": 2450,
       "available": true,
-      "shopify_url": "https://landrumtables.com/cart/45195027349573:1",
-      "price": 0
+      "shopify_url": "https://landrumtables.com/cart/45195027349573:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
