@@ -1,24 +1,24 @@
 {
   "title": "Fran's World",
   "published": true,
-  "featured": false,
+  "featured": true,
   "order": 28,
   "image": "/images/uploads/frans-world.jpg",
   "gallery_images": [
     "/images/uploads/frans-world-2.jpg"
   ],
-  "medium": "Oil on Canvas",
   "dimensions": "18 x 24",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
+      "price": 950,
       "available": true,
-      "shopify_url": "https://landrumtables.com/cart/45195025612869:1",
-      "price": 0
+      "shopify_url": "https://landrumtables.com/cart/45195025612869:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
