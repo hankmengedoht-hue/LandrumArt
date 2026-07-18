@@ -5,18 +5,18 @@
   "order": 13,
   "image": "/images/uploads/secluded-island.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
   "dimensions": "",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
+      "price": 695,
       "available": true,
-      "shopify_url": "https://landrumtables.com/cart/45195028889669:1",
-      "price": 0
+      "shopify_url": "https://landrumtables.com/cart/45195028889669:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
