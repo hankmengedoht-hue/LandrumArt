@@ -1,13 +1,12 @@
 {
   "title": "Dorries",
   "published": true,
-  "featured": false,
+  "featured": true,
   "order": 103,
   "image": "/images/uploads/Dorries 20x30 $1450.jpg",
   "gallery_images": [],
   "dimensions": "20 x 30",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
@@ -18,5 +17,6 @@
       "shopify_url": "https://landrumtables.com/cart/45195257643077:1"
     }
   ],
+  "collection": "",
   "medium": "Oil on Canvas"
 }
