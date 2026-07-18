@@ -7,16 +7,16 @@
   "gallery_images": [],
   "dimensions": "",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
-      "price": 0,
+      "price": 1650,
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45197534068805:1"
     }
   ],
+  "collection": "",
   "medium": "Oil on Canvas"
 }
