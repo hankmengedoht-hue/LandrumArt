@@ -1,22 +1,22 @@
 {
-  "title": "Floating Dragons",
+  "title": "Floating",
   "published": true,
   "featured": false,
   "order": 114,
   "image": "/images/uploads/Floating Dragons.jpg",
   "gallery_images": [],
-  "dimensions": "",
+  "dimensions": "10 x 20",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
-      "price": 0,
+      "price": 295,
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45195257905221:1"
     }
   ],
+  "collection": "",
   "medium": "Oil on Canvas"
 }
