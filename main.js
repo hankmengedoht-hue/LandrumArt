@@ -718,13 +718,13 @@ function _buildArtworkInfo(data) {
 
   function _renderPrintButtons(variants) {
     if (!variants || !_variantBase) return '';
-    return `<a href="${_variantBase}${variants.s}:1" target="_blank" rel="noopener noreferrer" class="dp-shop-buy">Purchase ${esc(_printSettings.size_1_label || '11 × 17')} — ${fmt(_printSettings.size_1_price)}</a>
+    return `<a href="${_variantBase}${variants.s}:1" target="_blank" rel="noopener noreferrer" class="dp-shop-buy">Purchase ${esc(_printSettings.size_1_label || '11 × 14')} — ${fmt(_printSettings.size_1_price)}</a>
             <a href="${_variantBase}${variants.l}:1" target="_blank" rel="noopener noreferrer" class="dp-shop-buy">Purchase ${esc(_printSettings.size_2_label || '16 × 20')} — ${fmt(_printSettings.size_2_price)}</a>`;
   }
 
   const allOpts = [...opts];
   if (!_hasPrintOpt && _printVariants) {
-    allOpts.push({ type: 'Print', description: 'Comes with backing and sleeve. 11x17 or 16x20', price: _printSettings.size_2_price, available: true, shopify_url: '' });
+    allOpts.push({ type: 'Print', description: 'Comes with backing and sleeve. 11x14 or 16x20', price: _printSettings.size_2_price, available: true, shopify_url: '' });
   }
 
   if (allOpts.length) {
