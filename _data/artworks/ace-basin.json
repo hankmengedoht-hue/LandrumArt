@@ -1,5 +1,5 @@
 {
-  "title": "Ace Basin",
+  "title": "ACE Basin",
   "published": true,
   "featured": true,
   "order": 40,
@@ -7,7 +7,6 @@
   "gallery_images": [],
   "dimensions": "40 x 30",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
@@ -25,5 +24,6 @@
       "shopify_url": ""
     }
   ],
+  "collection": "",
   "medium": "Oil on Canvas"
 }
