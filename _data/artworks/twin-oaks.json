@@ -5,18 +5,18 @@
   "order": 4,
   "image": "/images/uploads/twin-oaks.jpg",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
   "dimensions": "9 x 12",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
       "type": "Original",
       "description": "",
       "price": 225,
-      "available": true,
+      "available": false,
       "shopify_url": "https://landrumtables.com/cart/45195030462533:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
