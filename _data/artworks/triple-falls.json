@@ -3,12 +3,10 @@
   "published": true,
   "featured": false,
   "order": 6,
-  "image": "/images/uploads/triple-falls.jpg",
+  "image": "/images/uploads/tr.png",
   "gallery_images": [],
-  "medium": "Oil on Canvas",
   "dimensions": "20 x 16",
   "year": null,
-  "collection": "",
   "description": "",
   "purchase_options": [
     {
@@ -18,5 +16,7 @@
       "available": true,
       "shopify_url": "https://landrumtables.com/cart/45195030036549:1"
     }
-  ]
+  ],
+  "collection": "",
+  "medium": "Oil on Canvas"
 }
