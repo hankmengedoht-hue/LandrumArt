@@ -13,7 +13,7 @@
       "type": "Original",
       "description": "",
       "price": 550,
-      "available": true,
+      "available": false,
       "shopify_url": "https://landrumtables.com/cart/45195024629829:1"
     }
   ],
