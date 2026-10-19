@@ -1269,8 +1269,9 @@ p { max-width: 68ch; }
   color: var(--muted);
   margin-bottom: .75rem;
 }
-.contact-detail a { transition: color .2s; }
-.contact-detail a:hover { color: var(--accent); }
+.contact-detail a, a.contact-detail { transition: color .2s; }
+.contact-detail a:hover, a.contact-detail:hover { color: var(--accent); }
+a.contact-detail { width: fit-content; }
 .social-links { display: flex; gap: .75rem; margin-top: 1.75rem; flex-wrap: wrap; }
 .social-link {
   font-size: .68rem;

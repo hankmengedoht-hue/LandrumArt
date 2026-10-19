@@ -127,6 +127,10 @@ async function applySettings() {
     if (el.tagName === 'A') el.href = `mailto:${s.email || ''}`;
     el.textContent = s.email || '';
   });
+  document.querySelectorAll('[data-cms="email-link"]').forEach(el => {
+    el.href = `mailto:${s.email || ''}`;
+    el.style.display = s.email ? '' : 'none';
+  });
   document.querySelectorAll('[data-cms="tagline"]').forEach(el => {
     el.textContent = s.tagline || '';
   });
