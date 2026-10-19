@@ -1272,16 +1272,6 @@ p { max-width: 68ch; }
 .contact-detail a, a.contact-detail { transition: color .2s; }
 .contact-detail a:hover, a.contact-detail:hover { color: var(--accent); }
 a.contact-detail { width: fit-content; }
-.copy-note {
-  font-size: .68rem;
-  font-weight: 600;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--accent);
-  opacity: 0;
-  transition: opacity .2s;
-}
-.copy-note.show { opacity: 1; }
 .social-links { display: flex; gap: .75rem; margin-top: 1.75rem; flex-wrap: wrap; }
 .social-link {
   font-size: .68rem;

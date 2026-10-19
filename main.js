@@ -539,23 +539,14 @@ async function initAbout() {
 // ── CONTACT PAGE ──
 async function initContact() {
   applySettings();
-  // mailto does nothing on devices with no mail app, so also copy the address
+  // On computers, mailto: usually does nothing unless a desktop mail app is set up,
+  // so open a Gmail draft in a new tab instead. Phones keep mailto: (opens their mail app).
   const link = document.getElementById('contact-email-link');
-  link?.addEventListener('click', () => {
+  link?.addEventListener('click', e => {
     const addr = link.href.replace(/^mailto:/, '');
-    if (!addr || !navigator.clipboard) return;
-    navigator.clipboard.writeText(addr).then(() => {
-      let note = link.querySelector('.copy-note');
-      if (!note) {
-        note = document.createElement('span');
-        note.className = 'copy-note';
-        note.textContent = 'Email copied';
-        link.appendChild(note);
-      }
-      note.classList.add('show');
-      clearTimeout(note._t);
-      note._t = setTimeout(() => note.classList.remove('show'), 2500);
-    }).catch(() => {});
+    if (!addr || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    e.preventDefault();
+    window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(addr)}`, '_blank', 'noopener');
   });
 }
 
