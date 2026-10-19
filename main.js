@@ -539,6 +539,24 @@ async function initAbout() {
 // ── CONTACT PAGE ──
 async function initContact() {
   applySettings();
+  // mailto does nothing on devices with no mail app, so also copy the address
+  const link = document.getElementById('contact-email-link');
+  link?.addEventListener('click', () => {
+    const addr = link.href.replace(/^mailto:/, '');
+    if (!addr || !navigator.clipboard) return;
+    navigator.clipboard.writeText(addr).then(() => {
+      let note = link.querySelector('.copy-note');
+      if (!note) {
+        note = document.createElement('span');
+        note.className = 'copy-note';
+        note.textContent = 'Email copied';
+        link.appendChild(note);
+      }
+      note.classList.add('show');
+      clearTimeout(note._t);
+      note._t = setTimeout(() => note.classList.remove('show'), 2500);
+    }).catch(() => {});
+  });
 }
 
 // ── LIGHTBOX ──
