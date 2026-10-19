@@ -538,12 +538,6 @@ async function initAbout() {
 
 // ── CONTACT PAGE ──
 async function initContact() {
-  const s = await loadSettings();
-  const emailLink = document.getElementById('contact-email-link');
-  if (emailLink && s.email) {
-    emailLink.href = `mailto:${s.email}`;
-    emailLink.textContent = s.email;
-  }
   applySettings();
 }
 
